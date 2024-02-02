@@ -7,7 +7,7 @@ Leaflet Point Map with Sidebar with Google Sheets -- Best to display points as c
 
 Demo map: https://gwoolston.github.io/watsonville-map-2.1/
 
-Google Sheet: https://docs.google.com/spreadsheets/d/1h7pf22KYp6LrZ1Ys9txqqEGuGQHu6aHtGkc7ClRApZ0/edit#gid=0
+Google Sheet (Published for Web > Places, CSV): https://docs.google.com/spreadsheets/d/e/2PACX-1vTzmY9um6SOgT1PRU1J4gr3HbJtMivWFWBvAPZqiP9pjSVobOdqvsxE0esBYE6TSy9I8DTHjN3gGdt5/pub?gid=0&single=true&output=csv
 
 Created by Ilya Ilyankou and Jack Dougherty. Learn how to create your own copy and see related Leaflet map templates in our book, *Hands-On Data Visualization*: https://handsondataviz.org/leaflet.html
 
