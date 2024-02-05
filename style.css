@@ -91,8 +91,8 @@ a:hover {
 
 .rephoto-container {
   position: relative;
-  width: 900px;
-  height: 600px;
+  width: 460px;
+  height: auto;
   border: 2px solid white;
   .img {
     position: absolute;
