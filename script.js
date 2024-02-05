@@ -116,6 +116,20 @@ var updateSidebar = function(marker) {
 
       $('#placeInfo').animate({ opacity: 1 }, 300);
 
+// Rephotography Test
+      $("#slider").on("input change", (e)=>{
+ 
+	      const sliderPos = e.target.value;
+	      
+  // Update the width of the foreground image
+      $('.foreground-img').css('width', `${sliderPos}%`)
+	      
+  // Update the position of the slider button
+      $('.slider-button').css('left', `calc(${sliderPos}% - 18px)`)
+});
+
+// Rephotography Test
+	    
       // Scroll sidebar to focus on the place's title
       $('#sidebar').animate({
         scrollTop: $('header').height() + 20
