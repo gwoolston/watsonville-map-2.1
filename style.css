@@ -89,12 +89,3 @@ a:hover {
   margin-right: 60px;
 }
 
-
-#divisor {
-    background-color: blue; /* Change the background color as desired */
-    height: 20px; /* Set the height of the divisor */
-}
-
-#slider {
-    width: 200px; /* Set the width of the slider */
-}
