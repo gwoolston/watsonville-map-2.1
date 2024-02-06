@@ -124,12 +124,6 @@ var updateSidebar = function(marker) {
   }
 }
 
-/* Rephotography */
-
-
-
-/* Rephotography */
-
 /*
  * Main function that generates Leaflet markers from read CSV data
  */
