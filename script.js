@@ -126,23 +126,7 @@ var updateSidebar = function(marker) {
 
 /* Rephotography */
 
-var slider = document.getElementById('slider');
-var beforeImage = document.querySelector('.before-image');
-var afterImage = document.querySelector('.after-image');
 
-var initialClipValue = 300;
-var clipBefore = 'rect(0, ' + initialClipValue + 'px, 400px, 0)';
-var clipAfter = 'rect(0, 600px, 400px, ' + initialClipValue + 'px)';
-beforeImage.style.clip = clipBefore;
-afterImage.style.clip = clipAfter;
-
-slider.addEventListener('input', function() {
-    var value = slider.value;
-    var clipBefore = 'rect(0, ' + value + 'px, 400px, 0)';
-    var clipAfter = 'rect(0, 600px, 400px, ' + value + 'px)';
-    beforeImage.style.clip = clipBefore;
-    afterImage.style.clip = clipAfter;
-});
 
 /* Rephotography */
 
