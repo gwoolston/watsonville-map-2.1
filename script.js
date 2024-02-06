@@ -126,10 +126,11 @@ var updateSidebar = function(marker) {
 
 /* Rephotography */
 
-var divisor = document.getElementById("divisor"),
-slider = document.getElementById("slider");
+var divisor = 
+document.getElementById('divisor'),
+slider = document.getElementById('slider');
 function moveDivisor() { 
-	divisor.style.width = slider.value+"%";
+divisor.style.width = slider.value+'%';
 }
 
 /*
