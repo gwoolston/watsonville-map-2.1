@@ -126,13 +126,6 @@ var updateSidebar = function(marker) {
 
 /* Rephotography */
 
- var slider = document.getElementById('slider');
-    var beforeImage = document.querySelector('.before-image');
-
-    slider.addEventListener('input', function() {
-        var value = slider.value;
-        beforeImage.style.width = value + '%';
-    });
 
 
 /*
