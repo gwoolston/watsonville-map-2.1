@@ -239,10 +239,8 @@ var initMap = function() {
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
 
-  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
+  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
 	  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	  subdomains: 'abcd',
-	  ext: 'png',
 	  minZoom: 0,
 	  maxZoom: 20
   }).addTo(map);
