@@ -126,12 +126,23 @@ var updateSidebar = function(marker) {
 
 /* Rephotography */
 
-var divisor = 
-document.getElementById('divisor'),
-slider = document.getElementById('slider');
-function moveDivisor() { 
-divisor.style.width = slider.value+'%';
-}
+// Make sure this JavaScript code runs after the DOM has loaded
+document.addEventListener('DOMContentLoaded', function() {
+    var divisor = document.getElementById('divisor');
+    var slider = document.getElementById('slider');
+
+    // Check if the divisor and slider elements exist
+    if (divisor && slider) {
+        // Call the moveDivisor function whenever the slider value changes
+        slider.addEventListener('input', moveDivisor);
+
+        function moveDivisor() {
+            divisor.style.width = slider.value + '%';
+        }
+    } else {
+        console.error("Could not find divisor or slider element.");
+    }
+});
 
 /*
  * Main function that generates Leaflet markers from read CSV data
