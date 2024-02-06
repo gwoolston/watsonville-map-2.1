@@ -77,15 +77,12 @@
       <div id="description"></div>
 
       <!-- Rephotography -->
-      <div class='rephoto-container'>
-        <div class='rephoto-image-container'>
-          <img class='image-before' src='https://i.imgur.com/s08MkXC.jpg' />
-          <img class='image-after' src='https://i.imgur.com/PfIWek4.jpg' />
-        </div>
-        <input type='range' min='0' max='100' value= '50' class='slider' />
-        <div class='slider-line'></div>
-        <div class='slider-button' aria-hidden='true'></div>
-      </div>
+<div id="comparison">
+  <figure>
+    <div id="divisor"></div>
+  </figure>
+  <input type="range" min="0" max="100" value="50" id="slider" oninput="moveDivisor()">
+</div>
 
       <a id="googleMaps" class="shadow-1 mv3 pa3 dn" href="" target="_blank">
         <span class="material-icons dtc v-mid pa2 pr3">location_on</span>
