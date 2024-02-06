@@ -124,6 +124,14 @@ var updateSidebar = function(marker) {
   }
 }
 
+/* Rephotography */
+
+var divisor = document.getElementById("divisor"),
+slider = document.getElementById("slider");
+function moveDivisor() { 
+	divisor.style.width = slider.value+"%";
+}
+
 /*
  * Main function that generates Leaflet markers from read CSV data
  */
