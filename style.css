@@ -6,9 +6,8 @@
 
 @media screen and (min-width:30em) {
   #sidebar {
-    max-height: calc(100vh - 2rem);
     height: auto;
-    width: 460px;
+    width: 500px;
   }
 }
 
