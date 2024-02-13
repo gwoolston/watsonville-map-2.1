@@ -2,7 +2,7 @@
   z-index: 9999;
   overflow-y: scroll;
   opacity: 1.0;
-  color: #f0edd8ff;
+  background-color: #f0edd8ff;
 }
 
 @media screen and (min-width:30em) {
