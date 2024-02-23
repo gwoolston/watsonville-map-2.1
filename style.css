@@ -14,7 +14,7 @@
 
 
 .markerActive {
-  border: 4px solid rgba(0,0,0,0.1);
+  border: 0px solid rgba(0,0,0,0.0);
   /* Move up 4px and left 4px to account for border,
     to make sure the active marker doesn't move */
   margin: -24px 0 0 -24px !important; 
