@@ -7,5 +7,5 @@ const mapCenter = [36.9091343147002, -121.755301151745];
 const mapZoom = 11;
 
 // Marker icon height and width
-const iconHeight = 20;
-const iconWidth = 10;
+const iconHeight = 30;
+const iconWidth = 25;
