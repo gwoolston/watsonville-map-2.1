@@ -63,9 +63,8 @@ var updateSidebar = function(marker) {
     // Populate place information into the sidebar
       $('#placeInfo').animate({opacity: 0.5}, 300).promise().done(function() {
       $('#placeInfo h2').html(d.Name);
-      $('#placeInfo h3').html(d.Subtitle);
       $('#description').html(d.Description);
-      $('#streetview').html(d.Streetview);
+      $('#streetview h3').html(d.Streetview);
 
       // if (d.GoogleMapsLink) {
       //   $('#googleMaps').removeClass('dn').addClass('dt').attr('href', d.GoogleMapsLink);
