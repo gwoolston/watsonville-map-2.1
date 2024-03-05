@@ -8,6 +8,7 @@
   left: 0; /* Align with left */
   bottom: 0; /* Align with bottom */
   width: 500px; /* Set width to 500px */
+  height: 100%; /* Set height to 100% of page */
 }
 
 /*   z-index: 9999;
