@@ -116,7 +116,7 @@ var updateSidebar = function(marker) {
 
       $('#placeInfo').animate({ opacity: 1 }, 300);
 	    
-      Scroll sidebar to focus on the place's title
+      // Scroll sidebar to focus on the place's title
       $('#sidebar').animate({
         scrollTop: $('header').height() + 20
       }, 800);
