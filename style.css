@@ -51,14 +51,35 @@ a:hover {
 .leaflet-control-layers-expanded {
   font-size: 1.2em;
   line-height: 1.2em;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .leaflet-control-layers-expanded label {
   cursor: pointer;
 }
 
-.leaflet-control-layers-expanded label:hover {
+/* .leaflet-control-layers-expanded label:hover {
   opacity: 0.8;
+} */
+
+/* Remove background, border, and shadow from layer control */
+.leaflet-control-layers {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Optionally, you can style the content of the layer control */
+.leaflet-control-layers-selector {
+  color: #333; /* Change color of layer names */
+  background-color: transparent; /* Make layer names transparent */
+}
+
+/* Optionally, you can style the checkboxes */
+.leaflet-control-layers-selector input[type="checkbox"] {
+  margin-right: 5px; /* Add some spacing between checkboxes and layer names */
 }
 
 #layersControlPlaceholder {
