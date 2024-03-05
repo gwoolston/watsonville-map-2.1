@@ -197,7 +197,7 @@ map.removeControl(layersControl);
 var sidebar = document.getElementById('sidebar');
 
 // Replace the placeholder with the layers control
-sidebar.appendChild(layersControl.onAdd(map));
+sidebar.appendChild(layersControl.getContainer());
 
 
   // If name in hash, activate it
