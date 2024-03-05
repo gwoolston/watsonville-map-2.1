@@ -200,28 +200,28 @@ var loadData = function(loc) {
 /*
  * Add home button
  */
-var addHomeButton = function() {
+// var addHomeButton = function() {
 
-  var homeControl = L.Control.extend({
-    options: {
-      position: 'bottomright'
-    },
+//   var homeControl = L.Control.extend({
+//     options: {
+//       position: 'bottomright'
+//     },
 
-    onAdd: function(map) {
-      var container = L.DomUtil.create('span');
-      container.className = 'db material-icons home-button black-80';
-      container.innerText = 'map';
-      container.onclick = function() {
-        resetView();
-      }
+//     onAdd: function(map) {
+//       var container = L.DomUtil.create('span');
+//       container.className = 'db material-icons home-button black-80';
+//       container.innerText = 'map';
+//       container.onclick = function() {
+//         resetView();
+//       }
 
-      return container;
-    }
-  })
+//       return container;
+//     }
+//   })
 
-  map.addControl(new homeControl);
+//   map.addControl(new homeControl);
 
-}
+// }
 
 /*
  * Main function to initialize the map, add baselayer, and add markers
