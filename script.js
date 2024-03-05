@@ -248,11 +248,7 @@ var initMap = function() {
   loadData(dataLocation);
 
   // Add data & GitHub links
-  map.attributionControl.setPrefix('Download <a href="'
-    + dataLocation + '" target="_blank">data</a> or \
-    view <a href="http://github.com/handsondataviz/leaflet-point-map-sidebar" target="_blank">code on\
-    GitHub</a> | created with <a href="http://leafletjs.com" title="A JS library\
-    for interactive maps">Leaflet</a>');
+  map.attributionControl.setPrefix('View code by <a href="http://github.com/handsondataviz/leaflet-point-map-sidebar" target="_blank">HandsOnDataViz</a> | <a href="http://leafletjs.com">Leaflet</a>');
 
   // Add custom `home` control
   addHomeButton();
