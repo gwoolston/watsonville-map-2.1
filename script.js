@@ -165,16 +165,37 @@ var addMarkers = function(data) {
     if (d.slug === hashName) { activeMarker = m; }
   }
 
-  // Transform each array of markers into layerGroup
-  for (var g in groups) {
-    groups[g] = L.layerGroup(groups[g]);
+// // Transform each array of markers into layerGroup
+//   for (var g in groups) {
+//     groups[g] = L.layerGroup(groups[g]);
 
-    // By default, show all markers
-    groups[g].addTo(map);
-  }
+//     // By default, show all markers
+//     groups[g].addTo(map);
+//   }
 
-  L.control.layers({}, groups, {collapsed: false}).addTo(map);
-  $('.leaflet-control-layers-overlays').prepend('<h3 class="mt0 mb1 f5 black-30">Themes</h3>');
+//   L.control.layers({}, groups, {collapsed: false}).addTo(map);
+//   $('.leaflet-control-layers-overlays').prepend('<h3 class="mt0 mb1 f5 black-30">Themes</h3>');
+
+// Transform each array of markers into layerGroup
+for (var g in groups) {
+  groups[g] = L.layerGroup(groups[g]);
+
+  // By default, show all markers
+  groups[g].addTo(map);
+}
+
+// Create the layers control
+var layersControl = L.control.layers({}, groups, {collapsed: false});
+
+// Add the layers control to the map
+layersControl.addTo(map);
+
+// Get the sidebar container
+var sidebar = document.getElementById('sidebar');
+
+// Replace the placeholder with the layers control
+sidebar.appendChild(layersControl.onAdd(map));
+
 
   // If name in hash, activate it
   if (activeMarker) { activeMarker.fire('click') }
