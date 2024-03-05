@@ -61,6 +61,13 @@ a:hover {
   opacity: 0.8;
 }
 
+#layersControlPlaceholder {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Ensure it spans the full width of the sidebar */
+}
+
 .home-button {
   height: 24px;
   width: 24px;
