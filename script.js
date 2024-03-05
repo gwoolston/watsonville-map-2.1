@@ -199,6 +199,15 @@ var sidebar = document.getElementById('sidebar');
 // Replace the placeholder with the layers control
 sidebar.appendChild(layersControl.getContainer());
 
+// Initialize the event listeners for the layers control
+layersControl._container.addEventListener('mouseover', function() {
+  L.DomUtil.addClass(this, 'leaflet-control-layers-expanded');
+});
+
+layersControl._container.addEventListener('mouseout', function() {
+  L.DomUtil.removeClass(this, 'leaflet-control-layers-expanded');
+});
+
 
   // If name in hash, activate it
   if (activeMarker) { activeMarker.fire('click') }
