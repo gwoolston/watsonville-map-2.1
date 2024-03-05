@@ -191,7 +191,7 @@ var layersControl = L.control.layers({}, groups, {collapsed: false});
 layersControl.addTo(map);
 
 // Remove the default layers control from the map
-map.removeControl(map.layersControl);
+map.removeControl(layersControl);
 
 // Get the sidebar container
 var sidebar = document.getElementById('sidebar');
