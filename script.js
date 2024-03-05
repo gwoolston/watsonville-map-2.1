@@ -191,22 +191,13 @@ var layersControl = L.control.layers({}, groups, {collapsed: false});
 layersControl.addTo(map);
 
 // Remove the default layers control from the map
-map.removeControl(layersControl);
+map.layersControl.remove();
 
 // Get the sidebar container
 var sidebar = document.getElementById('sidebar');
 
 // Replace the placeholder with the layers control
-sidebar.appendChild(layersControl.getContainer());
-
-// Initialize the event listeners for the layers control
-layersControl._container.addEventListener('mouseover', function() {
-  L.DomUtil.addClass(this, 'leaflet-control-layers-expanded');
-});
-
-layersControl._container.addEventListener('mouseout', function() {
-  L.DomUtil.removeClass(this, 'leaflet-control-layers-expanded');
-});
+sidebar.appendChild(layersControl.onAdd(map));
 
 
   // If name in hash, activate it
