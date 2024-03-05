@@ -61,7 +61,7 @@ var updateSidebar = function(marker) {
     L.DomUtil.addClass(marker._icon, 'markerActive');
 
     // Populate place information into the sidebar
-      $('#placeInfo').promise().done(function() {
+      $('#placeInfo').animate({opacity: 0.5}, 300).promise().done(function() {
       $('#placeInfo h2').html(d.Name);
       $('#placeInfo h3').html(d.Subtitle);
       $('#description').html(d.Description);
