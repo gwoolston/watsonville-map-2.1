@@ -1,9 +1,20 @@
 #sidebar {
   z-index: 9999;
+  overflow-y: auto; /* Change to auto to display scrollbar only when needed */
+  opacity: 1.0;
+  background-color: #f0edd8ff;
+  position: absolute; /* Set position to absolute */
+  top: 0; /* Align with top */
+  left: 0; /* Align with left */
+  bottom: 0; /* Align with bottom */
+  width: 500px; /* Set width to 500px */
+}
+
+/*   z-index: 9999;
   overflow-y: scroll;
   opacity: 1.0;
   background-color: #f0edd8ff;
-}
+} */
 
 @media screen and (min-width:30em) {
   #sidebar {
@@ -11,7 +22,6 @@
     width: 500px;
   }
 }
-
 
 .markerActive {
   border: 1px solid rgba(0,0,0,0.0);
