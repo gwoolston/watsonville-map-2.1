@@ -75,6 +75,8 @@ var updateSidebar = function(marker) {
 $('#gallery').html('');
 $('#galleryIcon').hide();
 
+var currentIndex = 0; // Keep track of the current image index
+
 // Load up to 5 images
 for (var i = 1; i <= 5; i++) {
   var idx = 'Image' + i;
@@ -94,13 +96,6 @@ for (var i = 1; i <= 5; i++) {
       'data-lightbox': 'gallery',
       'data-title': (d[idx + 'Caption'] + ' ' + source) || '',
       'data-alt': d.Name,
-      'data-index': i // custom attribute to track image index
-    });
-
-    // Attach click handlers to the images for navigation
-    img.click(function() {
-      var direction = $(this).hasClass('arrow-left') ? -1 : 1;
-      navigateGallery($(this).data('index') + direction);
     });
 
     $('#gallery').append(img);
@@ -114,20 +109,46 @@ for (var i = 1; i <= 5; i++) {
       );
     }
 
-    if (i === 2) {
-      $('#gallery').append('<span class="material-icons arrow arrow-right white-90">navigate_next</span>');
-      $('#gallery').append('<span class="material-icons arrow arrow-left white-90">navigate_before</span>');
-    }
-
   } else {
     break;
   }
 }
 
-function navigateGallery(index) {
-  // Implement logic to navigate to the next or previous image in the gallery based on the provided index
-  // You can use this function to change the active image in the sidebar gallery
+// Append navigation arrows
+$('#gallery').append('<span class="material-icons arrow arrow-left white-90">navigate_before</span>');
+$('#gallery').append('<span class="material-icons arrow arrow-right white-90">navigate_next</span>');
+
+// Hide all images except the first one
+$('#gallery img').not(':first').hide();
+
+// Event handler for left arrow
+$('.arrow-left').click(function() {
+  showImage(currentIndex - 1);
+});
+
+// Event handler for right arrow
+$('.arrow-right').click(function() {
+  showImage(currentIndex + 1);
+});
+
+// Function to show image at a specific index
+function showImage(index) {
+  var $images = $('#gallery img');
+  var numImages = $images.length;
+
+  // Wrap around if index is out of bounds
+  index = (index + numImages) % numImages;
+
+  // Hide all images except the one at the given index
+  $images.hide().eq(index).show();
+
+  // Update caption
+  var caption = $images.eq(index).data('title') || '';
+  $('#gallery p').html(caption);
+
+  currentIndex = index;
 }
+
 
 
 	      
