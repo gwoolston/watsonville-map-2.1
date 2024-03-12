@@ -103,6 +103,7 @@ a:hover {
   transform: translateY(-50%); /* Adjust vertical position */
   font-size: 24px; /* Set arrow size */
   cursor: pointer; /* Show pointer cursor */
+  color: black; /* Set arrow color */
 }
 
 .arrow-left {
