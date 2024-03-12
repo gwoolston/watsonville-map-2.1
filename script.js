@@ -149,7 +149,7 @@ var addMarkers = function(data) {
   		iconUrl: d.Icon,
  	 	iconSize: [25, 41], // Default marker size
   		iconAnchor: [12.5, 41], // Middle bottom point of icon represents point center
-  		className: 'br1',
+  		// className: 'br1',
 	}),
         // Pass place data
         placeInfo: d
