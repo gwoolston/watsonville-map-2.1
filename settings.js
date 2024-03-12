@@ -3,9 +3,9 @@
 const dataLocation = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTzmY9um6SOgT1PRU1J4gr3HbJtMivWFWBvAPZqiP9pjSVobOdqvsxE0esBYE6TSy9I8DTHjN3gGdt5/pub?gid=0&single=true&output=csv';
 
 // Map's initial center, and zoom level
-const mapCenter = [36.90995651744821, -121.89880727464121];
+const mapCenter = [36.9129725892497, -121.754540388535];
 const mapZoom = 12;
 
 // Marker icon height and width
-const iconHeight = 30;
-const iconWidth = 25;
+const iconHeight = 25;
+const iconWidth = 15;
