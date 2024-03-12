@@ -90,7 +90,30 @@ a:hover {
   background-color: rgb(239, 239, 239);
 } */
 
-#gallery {
+#gallery img {
+  max-width: 100%; /* Set maximum width */
+  max-height: 300px; /* Set maximum height */
+  display: block; /* Ensure images are displayed as blocks */
+  margin: 0 auto; /* Center images horizontally */
+}
+
+.material-icons.arrow {
+  position: absolute; /* Position arrows absolutely */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust vertical position */
+  font-size: 24px; /* Set arrow size */
+  cursor: pointer; /* Show pointer cursor */
+}
+
+.arrow-left {
+  left: 10px; /* Position left arrow */
+}
+
+.arrow-right {
+  right: 10px; /* Position right arrow */
+}
+
+/* #gallery {
   position: relative;
 }
 
@@ -112,4 +135,4 @@ a:hover {
 .material-icons.arrow.arrow-right {
   right: 0;
   margin-right: 60px;
-}
+} */
