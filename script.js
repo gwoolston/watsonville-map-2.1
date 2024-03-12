@@ -150,9 +150,6 @@ function showImage(index) {
   currentIndex = index;
 }
 
-
-
-
 	      
       // $('#gallery').html('');
       // $('#galleryIcon').hide();
