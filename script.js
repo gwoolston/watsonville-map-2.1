@@ -101,8 +101,9 @@ for (var i = 1; i <= 5; i++) {
     $('#gallery').append(img);
 
     if (i === 1) {
-      $('#gallery').append(
+      $('#gallery').after(
         $('<p/>', {
+          id: 'caption',
           class: 'f6 black-50 mt1',
           html: d[idx + 'Caption'] + ' ' + source
         })
@@ -115,8 +116,8 @@ for (var i = 1; i <= 5; i++) {
 }
 
 // Append navigation arrows
-$('#gallery').append('<span class="material-icons arrow arrow-left white-90">navigate_before</span>');
-$('#gallery').append('<span class="material-icons arrow arrow-right white-90">navigate_next</span>');
+$('#gallery').after('<span class="material-icons arrow arrow-left white-90">navigate_before</span>');
+$('#gallery').after('<span class="material-icons arrow arrow-right white-90">navigate_next</span>');
 
 // Hide all images except the first one
 $('#gallery img').not(':first').hide();
@@ -144,10 +145,11 @@ function showImage(index) {
 
   // Update caption
   var caption = $images.eq(index).data('title') || '';
-  $('#gallery p').html(caption);
+  $('#caption').html(caption);
 
   currentIndex = index;
 }
+
 
 
 
