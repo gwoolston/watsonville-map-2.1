@@ -146,11 +146,11 @@ var addMarkers = function(data) {
       [d.Latitude, d.Longitude],
       {
         icon: L.icon({
-          iconUrl: d.Icon,
-          iconSize: [ iconWidth, iconHeight ],
-          iconAnchor: [ iconWidth/2, iconHeight/2 ], // middle of icon represents point center
-          className: 'br1',
-        }),
+  		iconUrl: d.Icon,
+ 	 	iconSize: [25, 41], // Default marker size
+  		iconAnchor: [12.5, 41], // Middle bottom point of icon represents point center
+  		className: 'br1',
+	}),
         // Pass place data
         placeInfo: d
       },
