@@ -72,47 +72,106 @@ var updateSidebar = function(marker) {
       //   $('#googleMaps').addClass('dn').removeClass('dt');
       // }
 
-      $('#gallery').html('');
-      $('#galleryIcon').hide();
+$('#gallery').html('');
+$('#galleryIcon').hide();
 
-      // Load up to 5 images
-      for (var i = 1; i <= 5; i++) {
-        var idx = 'Image' + i;
+// Load up to 5 images
+for (var i = 1; i <= 5; i++) {
+  var idx = 'Image' + i;
 
-        if (d[idx]) {
+  if (d[idx]) {
 
-          var source = "<em class='normal'>" + d[idx + 'Source'] + '</em>';
+    var source = "<em class='normal'>" + d[idx + 'Source'] + '</em>';
 
-          if (source && d[idx + 'SourceLink']) {
-            source = "<a href='" + d[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
-          }
+    if (source && d[idx + 'SourceLink']) {
+      source = "<a href='" + d[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
+    }
 
-          var a = $('<a/>', {
-            href: d[idx],
-            'data-lightbox': 'gallery',
-            'data-title': ( d[idx + 'Caption'] + ' ' + source )  || '',
-            'data-alt': d.Name,
-            'class': i === 1 ? '' : 'dn'
-          });
+    var img = $('<img/>', {
+      src: d[idx],
+      alt: d.Name,
+      class: 'dim br1',
+      'data-lightbox': 'gallery',
+      'data-title': (d[idx + 'Caption'] + ' ' + source) || '',
+      'data-alt': d.Name,
+      'data-index': i // custom attribute to track image index
+    });
 
-          var img = $('<img/>', { src: d[idx], alt: d.Name, class: 'dim br1' });
-          $('#gallery').append( a.append(img) );
+    // Attach click handlers to the images for navigation
+    img.click(function() {
+      var direction = $(this).hasClass('arrow-left') ? -1 : 1;
+      navigateGallery($(this).data('index') + direction);
+    });
 
-          if (i === 1) {
-            $('#gallery').append(
-              $('<p/>', { class: 'f6 black-50 mt1', html: d[idx + 'Caption'] + ' ' + source })
-            );
-          }
+    $('#gallery').append(img);
 
-          if (i === 2) {
-            $('#gallery > a:first-child').append('<span class="material-icons arrow arrow-right white-90">navigate_next</span>')
-            $('#gallery > a:first-child').append('<span class="material-icons arrow arrow-left white-90">navigate_before</span>')
-          }
+    if (i === 1) {
+      $('#gallery').append(
+        $('<p/>', {
+          class: 'f6 black-50 mt1',
+          html: d[idx + 'Caption'] + ' ' + source
+        })
+      );
+    }
 
-        } else {
-          break;
-        }
-      }
+    if (i === 2) {
+      $('#gallery').append('<span class="material-icons arrow arrow-right white-90">navigate_next</span>');
+      $('#gallery').append('<span class="material-icons arrow arrow-left white-90">navigate_before</span>');
+    }
+
+  } else {
+    break;
+  }
+}
+
+function navigateGallery(index) {
+  // Implement logic to navigate to the next or previous image in the gallery based on the provided index
+  // You can use this function to change the active image in the sidebar gallery
+}
+
+
+	      
+      // $('#gallery').html('');
+      // $('#galleryIcon').hide();
+
+      // // Load up to 5 images
+      // for (var i = 1; i <= 5; i++) {
+      //   var idx = 'Image' + i;
+
+      //   if (d[idx]) {
+
+      //     var source = "<em class='normal'>" + d[idx + 'Source'] + '</em>';
+
+      //     if (source && d[idx + 'SourceLink']) {
+      //       source = "<a href='" + d[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
+      //     }
+
+      //     var a = $('<a/>', {
+      //       href: d[idx],
+      //       'data-lightbox': 'gallery',
+      //       'data-title': ( d[idx + 'Caption'] + ' ' + source )  || '',
+      //       'data-alt': d.Name,
+      //       'class': i === 1 ? '' : 'dn'
+      //     });
+
+      //     var img = $('<img/>', { src: d[idx], alt: d.Name, class: 'dim br1' });
+      //     $('#gallery').append( a.append(img) );
+
+      //     if (i === 1) {
+      //       $('#gallery').append(
+      //         $('<p/>', { class: 'f6 black-50 mt1', html: d[idx + 'Caption'] + ' ' + source })
+      //       );
+      //     }
+
+      //     if (i === 2) {
+      //       $('#gallery > a:first-child').append('<span class="material-icons arrow arrow-right white-90">navigate_next</span>')
+      //       $('#gallery > a:first-child').append('<span class="material-icons arrow arrow-left white-90">navigate_before</span>')
+      //     }
+
+      //   } else {
+      //     break;
+      //   }
+      // }
 
       $('#placeInfo').animate({ opacity: 1 }, 300);
 	    
