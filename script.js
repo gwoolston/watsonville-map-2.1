@@ -328,22 +328,57 @@ var loadData = function(loc) {
  */
 var initMap = function() {
 
-  map = L.map('map', {
-    center: mapCenter,
-    zoom: mapZoom,
-    tap: false, // to avoid issues in Safari, disable tap
-    zoomControl: false,
-  });
+  // map = L.map('map', {
+  //   center: mapCenter,
+  //   zoom: mapZoom,
+  //   tap: false, // to avoid issues in Safari, disable tap
+  //   zoomControl: false,
+  // });
 
-  // Add zoom control to the bottom-right corner
-  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  // // Add zoom control to the bottom-right corner
+  // L.control.zoom({ position: 'bottomright' }).addTo(map);
 
 
-  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-	  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	  minZoom: 0,
-	  maxZoom: 20
-  }).addTo(map);
+  // L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+	 //  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	 //  minZoom: 0,
+	 //  maxZoom: 20
+  // }).addTo(map);
+
+map = L.map('map', {
+  center: mapCenter,
+  zoom: mapZoom,
+  tap: false, // to avoid issues in Safari, disable tap
+  zoomControl: false,
+});
+
+// Add zoom control to the bottom-right corner
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+// Define basemaps
+var darkBasemap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  minZoom: 0,
+  maxZoom: 20
+});
+
+var lightBasemap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+  minZoom: 0,
+  maxZoom: 20,
+  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+
+// Add both basemaps to the map
+darkBasemap.addTo(map); // Default basemap
+
+// Create an object to hold basemap options
+var basemaps = {
+  "Dark Basemap": darkBasemap,
+  "Light Basemap": lightBasemap
+};
+
+// Add layer control to switch between basemaps
+L.control.layers(basemaps).addTo(map);
 
   loadData(dataLocation);
 
