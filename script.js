@@ -48,6 +48,9 @@ var updateSidebar = function(marker) {
     L.DomUtil.removeClass(marker._icon, 'markerActive');
     resetSidebar();
   } else {
+    // Reset sidebar before updating with new marker's information
+    resetSidebar();
+
     location.hash = d.slug;
 
     // Dim map's title
@@ -66,135 +69,91 @@ var updateSidebar = function(marker) {
       $('#description').html(d.Description);
       $('#streetview h3').html(d.Streetview);
 
-      // if (d.GoogleMapsLink) {
-      //   $('#googleMaps').removeClass('dn').addClass('dt').attr('href', d.GoogleMapsLink);
-      // } else {
-      //   $('#googleMaps').addClass('dn').removeClass('dt');
-      // }
+      // Reset gallery and caption
+      $('#gallery').html('');
+      $('#caption').remove();
 
-$('#gallery').html('');
-$('#galleryIcon').hide();
+      var currentIndex = 0; // Keep track of the current image index
 
-var currentIndex = 0; // Keep track of the current image index
+      // Load up to 5 images
+      for (var i = 1; i <= 5; i++) {
+        var idx = 'Image' + i;
 
-// Load up to 5 images
-for (var i = 1; i <= 5; i++) {
-  var idx = 'Image' + i;
+        if (d[idx]) {
 
-  if (d[idx]) {
+          var source = "<em class='normal'>" + d[idx + 'Source'] + '</em>';
 
-    var source = "<em class='normal'>" + d[idx + 'Source'] + '</em>';
+          if (source && d[idx + 'SourceLink']) {
+            source = "<a href='" + d[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
+          }
 
-    if (source && d[idx + 'SourceLink']) {
-      source = "<a href='" + d[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
-    }
+          var img = $('<img/>', {
+            src: d[idx],
+            alt: d.Name,
+            class: 'dim br1',
+            'data-lightbox': 'gallery',
+            'data-title': (d[idx + 'Caption'] + ' ' + source) || '',
+            'data-alt': d.Name,
+          });
 
-    var img = $('<img/>', {
-      src: d[idx],
-      alt: d.Name,
-      class: 'dim br1',
-      'data-lightbox': 'gallery',
-      'data-title': (d[idx + 'Caption'] + ' ' + source) || '',
-      'data-alt': d.Name,
-    });
+          $('#gallery').append(img);
 
-    $('#gallery').append(img);
+          if (i === 1) {
+            $('#gallery').after(
+              $('<p/>', {
+                id: 'caption',
+                class: 'f6 black-50 mt1',
+                html: d[idx + 'Caption'] + ' ' + source
+              })
+            );
+          }
 
-    if (i === 1) {
-      $('#gallery').after(
-        $('<p/>', {
-          id: 'caption',
-          class: 'f6 black-50 mt1',
-          html: d[idx + 'Caption'] + ' ' + source
-        })
-      );
-    }
+        } else {
+          break;
+        }
+      }
 
-  } else {
-    break;
-  }
+// Check if there are any images in the gallery
+if ($('#gallery img').length > 0) {
+  // Append navigation arrows
+  $('#gallery').after('<span class="material-icons arrow arrow-left white-90">navigate_before</span>');
+  $('#gallery').after('<span class="material-icons arrow arrow-right white-90">navigate_next</span>');
+
+  // Hide all images except the first one
+  $('#gallery img').not(':first').hide();
+
+  // Event handler for left arrow
+  $('.arrow-left').click(function() {
+      showImage(currentIndex - 1);
+  });
+
+  // Event handler for right arrow
+  $('.arrow-right').click(function() {
+      showImage(currentIndex + 1);
+  });
 }
 
-// Append navigation arrows
-$('#gallery').after('<span class="material-icons arrow arrow-left white-90">navigate_before</span>');
-$('#gallery').after('<span class="material-icons arrow arrow-right white-90">navigate_next</span>');
 
-// Hide all images except the first one
-$('#gallery img').not(':first').hide();
+      // Function to show image at a specific index
+      function showImage(index) {
+        var $images = $('#gallery img');
+        var numImages = $images.length;
 
-// Event handler for left arrow
-$('.arrow-left').click(function() {
-  showImage(currentIndex - 1);
-});
+        // Wrap around if index is out of bounds
+        index = (index + numImages) % numImages;
 
-// Event handler for right arrow
-$('.arrow-right').click(function() {
-  showImage(currentIndex + 1);
-});
+        // Hide all images except the one at the given index
+        $images.hide().eq(index).show();
 
-// Function to show image at a specific index
-function showImage(index) {
-  var $images = $('#gallery img');
-  var numImages = $images.length;
+        // Update caption
+        var caption = $images.eq(index).data('title') || '';
+        $('#caption').html(caption);
 
-  // Wrap around if index is out of bounds
-  index = (index + numImages) % numImages;
-
-  // Hide all images except the one at the given index
-  $images.hide().eq(index).show();
-
-  // Update caption
-  var caption = $images.eq(index).data('title') || '';
-  $('#caption').html(caption);
-
-  currentIndex = index;
-}
-
-	      
-      // $('#gallery').html('');
-      // $('#galleryIcon').hide();
-
-      // // Load up to 5 images
-      // for (var i = 1; i <= 5; i++) {
-      //   var idx = 'Image' + i;
-
-      //   if (d[idx]) {
-
-      //     var source = "<em class='normal'>" + d[idx + 'Source'] + '</em>';
-
-      //     if (source && d[idx + 'SourceLink']) {
-      //       source = "<a href='" + d[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
-      //     }
-
-      //     var a = $('<a/>', {
-      //       href: d[idx],
-      //       'data-lightbox': 'gallery',
-      //       'data-title': ( d[idx + 'Caption'] + ' ' + source )  || '',
-      //       'data-alt': d.Name,
-      //       'class': i === 1 ? '' : 'dn'
-      //     });
-
-      //     var img = $('<img/>', { src: d[idx], alt: d.Name, class: 'dim br1' });
-      //     $('#gallery').append( a.append(img) );
-
-      //     if (i === 1) {
-      //       $('#gallery').append(
-      //         $('<p/>', { class: 'f6 black-50 mt1', html: d[idx + 'Caption'] + ' ' + source })
-      //       );
-      //     }
-
-      //     if (i === 2) {
-      //       $('#gallery > a:first-child').append('<span class="material-icons arrow arrow-right white-90">navigate_next</span>')
-      //       $('#gallery > a:first-child').append('<span class="material-icons arrow arrow-left white-90">navigate_before</span>')
-      //     }
-
-      //   } else {
-      //     break;
-      //   }
-      // }
+        currentIndex = index;
+      }
 
       $('#placeInfo').animate({ opacity: 1 }, 300);
-	    
+        
       // Scroll sidebar to focus on the place's title
       $('#sidebar').animate({
         scrollTop: $('header').height() + 20
@@ -202,6 +161,24 @@ function showImage(index) {
     })
   }
 }
+
+function resetSidebar() {
+  // Reset sidebar content
+  $('#placeInfo').addClass('dn');
+  $('header').removeClass('black-50');
+  $('#placeInfo h2').html('');
+  $('#description').html('');
+  $('#streetview h3').html('');
+  $('#gallery').html('');
+  $('#caption').remove();
+
+  // Check if navigation arrows are present and remove them
+  if ($('.arrow').length > 0) {
+      $('.arrow').remove();
+  }
+}
+
+
 
 /*
  * Main function that generates Leaflet markers from read CSV data
@@ -244,17 +221,6 @@ var addMarkers = function(data) {
     if (d.slug === hashName) { activeMarker = m; }
   }
 
-// // Transform each array of markers into layerGroup
-//   for (var g in groups) {
-//     groups[g] = L.layerGroup(groups[g]);
-
-//     // By default, show all markers
-//     groups[g].addTo(map);
-//   }
-
-//   L.control.layers({}, groups, {collapsed: false}).addTo(map);
-//   $('.leaflet-control-layers-overlays').prepend('<h3 class="mt0 mb1 f5 black-30">Themes</h3>');
-
 // Transform each array of markers into layerGroup
 for (var g in groups) {
   groups[g] = L.layerGroup(groups[g]);
@@ -263,18 +229,41 @@ for (var g in groups) {
   groups[g].addTo(map);
 }
 
+// Create an empty object to store layer controls
+var layerControls = {};
+
 // Create the layers control
-var layersControl = L.control.layers({}, groups, {collapsed: false});
+for (var groupName in groups) {
+    if (groups.hasOwnProperty(groupName)) {
+        // Create a new layer control for each group
+        layerControls[groupName] = L.control.layers({}, { [groupName]: groups[groupName] }, { collapsed: false });
+    }
+}
 
 // Add the layers control to the map
-layersControl.addTo(map);
+for (var groupName in layerControls) {
+    if (layerControls.hasOwnProperty(groupName)) {
+        layerControls[groupName].addTo(map);
+    }
+}
 
 // Get the sidebar container
 var sidebar = document.getElementById('sidebar');
 
-// Replace the placeholder with the layers control
-sidebar.appendChild(layersControl.onAdd(map));
+// Create the layers control for the sidebar
+var sidebarLayers = L.DomUtil.create('div', 'leaflet-control-layers leaflet-control leaflet-sidebar-layers');
 
+// Add the layer checkboxes
+for (var groupName in layerControls) {
+    if (layerControls.hasOwnProperty(groupName)) {
+        var layerControl = layerControls[groupName];
+        var container = L.DomUtil.create('div', '', sidebarLayers);
+        container.appendChild(layerControl.getContainer());
+    }
+}
+
+// Add the layers control to the sidebar
+sidebar.appendChild(sidebarLayers);
 
   // If name in hash, activate it
   if (activeMarker) { activeMarker.fire('click') }
@@ -297,53 +286,12 @@ var loadData = function(loc) {
 
 }
 
-/*
- * Add home button
- */
-// var addHomeButton = function() {
-
-//   var homeControl = L.Control.extend({
-//     options: {
-//       position: 'bottomright'
-//     },
-
-//     onAdd: function(map) {
-//       var container = L.DomUtil.create('span');
-//       container.className = 'db material-icons home-button black-80';
-//       container.innerText = 'map';
-//       container.onclick = function() {
-//         resetView();
-//       }
-
-//       return container;
-//     }
-//   })
-
-//   map.addControl(new homeControl);
-
 // }
 
 /*
  * Main function to initialize the map, add baselayer, and add markers
  */
 var initMap = function() {
-
-  // map = L.map('map', {
-  //   center: mapCenter,
-  //   zoom: mapZoom,
-  //   tap: false, // to avoid issues in Safari, disable tap
-  //   zoomControl: false,
-  // });
-
-  // // Add zoom control to the bottom-right corner
-  // L.control.zoom({ position: 'bottomright' }).addTo(map);
-
-
-  // L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-	 //  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	 //  minZoom: 0,
-	 //  maxZoom: 20
-  // }).addTo(map);
 
 map = L.map('map', {
   center: mapCenter,
