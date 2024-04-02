@@ -179,7 +179,6 @@ function resetSidebar() {
 }
 
 
-
 /*
  * Main function that generates Leaflet markers from read CSV data
  */
@@ -334,9 +333,9 @@ L.control.layers(basemaps).addTo(map);
   map.attributionControl.setPrefix('<a href="http://github.com/handsondataviz/leaflet-point-map-sidebar" target="_blank">Code</a> by <a href="https://handsondataviz.org/" target="_blank">HandsOnDataViz</a> | <a href="http://leafletjs.com">Leaflet</a>');
 
   // Add custom `home` control
-  addHomeButton();
+  // addHomeButton();
 
-  $('#closeButton').on('click', resetView);
+  // $('#closeButton').on('click', resetView);
 }
 
 // When DOM is loaded, initialize the map
