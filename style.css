@@ -1,14 +1,27 @@
 #sidebar {
-  z-index: 9999;
-  overflow-y: auto; /* Change to auto to display scrollbar only when needed */
-  opacity: 1.0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 500px;
+  overflow-y: auto;
   background-color: #f0edd8ff;
-  position: absolute; /* Set position to absolute */
-  top: 0; /* Align with top */
-  left: 0; /* Align with left */
-  bottom: 0; /* Align with bottom */
-  width: 500px; /* Set width to 500px */
-  height: 100%; /* Set height to 100% of page */
+  z-index: 9999;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 5px; /* Adjust the padding to reduce the gap */
+  padding-left: 20px; /* Adjust the padding to reduce the gap */
+  border-top: none; /* Remove the border */
+}
+
+#placeInfo {
+  max-height: 450px; /* Adjust the height to leave space for the footer */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 @media screen and (min-width:30em) {
@@ -48,10 +61,6 @@ a:hover {
   cursor: pointer;
 }
 
-/* .leaflet-control-layers-expanded label:hover {
-  opacity: 0.8;
-} */
-
 /* Remove background, border, and shadow from layer control */
 .leaflet-control-layers {
   background-color: transparent !important;
@@ -69,26 +78,6 @@ a:hover {
 .leaflet-control-layers-selector input[type="checkbox"] {
   margin-right: 5px; /* Add some spacing between checkboxes and layer names */
 }
-
-#layersControlPlaceholder {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%; /* Ensure it spans the full width of the sidebar */
-}
-
-/* .home-button {
-  height: 24px;
-  width: 24px;
-  background-color: white;
-  padding: 3px;
-  cursor: pointer !important;
-  border: 1px solid black;
-}
-
-.home-button:hover {
-  background-color: rgb(239, 239, 239);
-} */
 
 #gallery img {
   max-width: 100%; /* Set maximum width */
@@ -113,27 +102,3 @@ a:hover {
 .arrow-right {
   right: 10px; /* Position right arrow */
 }
-
-/* #gallery {
-  position: relative;
-}
-
-.material-icons.arrow {
-  font-size: 60px;
-  position: relative;
-  display: block;
-  width: 0;
-  height: 0;
-  position: absolute;
-  top: 50%;
-  margin-top: -30px;
-}
-
-.material-icons.arrow.arrow-left {
-  left: 0;
-}
-
-.material-icons.arrow.arrow-right {
-  right: 0;
-  margin-right: 60px;
-} */

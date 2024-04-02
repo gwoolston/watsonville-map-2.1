@@ -54,7 +54,7 @@ var updateSidebar = function(marker) {
     location.hash = d.slug;
 
     // Dim map's title
-    $('header').addClass('black-50');
+    $('header').addClass();
     $('#placeInfo').removeClass('dn');
 
     // Clear out active markers from all markers
@@ -261,8 +261,11 @@ for (var groupName in layerControls) {
     }
 }
 
-// Add the layers control to the sidebar
-sidebar.appendChild(sidebarLayers);
+// Get the layersControlPlaceholder
+var layersControlPlaceholder = document.getElementById('layersControlPlaceholder');
+
+// Add the layers control to the layersControlPlaceholder
+layersControlPlaceholder.appendChild(sidebarLayers);
 
   // If name in hash, activate it
   if (activeMarker) { activeMarker.fire('click') }
