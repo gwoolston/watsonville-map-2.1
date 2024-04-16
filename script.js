@@ -67,7 +67,6 @@ var updateSidebar = function(marker) {
       $('#placeInfo').animate({opacity: 0.5}, 300).promise().done(function() {
       $('#placeInfo h2').html(d.Name);
       $('#description').html(d.Description);
-      $('#streetview h3').html(d.Streetview);
 
       // Reset gallery and caption
       $('#gallery').html('');
@@ -75,49 +74,68 @@ var updateSidebar = function(marker) {
 
       var currentIndex = 0; // Keep track of the current image index
 
-      // Load up to 5 images
-      for (var i = 1; i <= 5; i++) {
-        var idx = 'Image' + i;
+// Function to populate the gallery with images
+function populateGallery(data) {
+  // Load up to 5 images
+  for (var i = 1; i <= 5; i++) {
+    var idx = 'Image' + i;
 
-        if (d[idx]) {
+    if (data[idx]) {
 
-          var source = "<em class='normal'>" + d[idx + 'Source'] + '</em>';
+      var source = "<em class='normal'>" + data[idx + 'Source'] + '</em>';
 
-          if (source && d[idx + 'SourceLink']) {
-            source = "<a href='" + d[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
-          }
-
-          var img = $('<img/>', {
-            src: d[idx],
-            alt: d.Name,
-            class: 'dim br1',
-            'data-lightbox': 'gallery',
-            'data-title': (d[idx + 'Caption'] + ' ' + source) || '',
-            'data-alt': d.Name,
-          });
-
-          $('#gallery').append(img);
-
-          if (i === 1) {
-            $('#gallery').after(
-              $('<p/>', {
-                id: 'caption',
-                class: 'f6 black-50 mt1',
-                html: d[idx + 'Caption'] + ' ' + source
-              })
-            );
-          }
-
-        } else {
-          break;
-        }
+      if (source && data[idx + 'SourceLink']) {
+        source = "<a href='" + data[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
       }
+
+      var img = $('<img/>', {
+        src: data[idx],
+        alt: data.Name,
+        class: 'dim br1',
+        'data-lightbox': 'gallery',
+        'data-title': (data[idx + 'Caption'] + ' ' + source) || '',
+        'data-alt': data.Name,
+      });
+
+      $('#gallery').append(img);
+
+      if (i === 1) {
+        $('#gallery').after(
+          $('<p/>', {
+            id: 'caption',
+            class: 'f6 black-50 mt1',
+            html: data[idx + 'Caption'] + ' ' + source
+          })
+        );
+      }
+
+    } else {
+      break;
+    }
+  }
+}
+
+// Call the populateGallery function with your data object (assuming it's named 'd')
+populateGallery(d);
+
+// Rephotography
+function populateBeforeAfterSlider(data) {
+  var beforeImageUrl = data['foreground-img'];
+  var afterImageUrl = data['background-img'];
+
+  // Set the background images of the before and after image placeholders
+  document.getElementById("beforeImage").style.backgroundImage = "url('" + beforeImageUrl + "')";
+  document.getElementById("afterImage").style.backgroundImage = "url('" + afterImageUrl + "')";
+}
+
+// Call the populateBeforeAfterSlider function with your data object (assuming it's named 'd')
+populateBeforeAfterSlider(d);
 
 // Check if there are any images in the gallery
 if ($('#gallery img').length > 0) {
   // Append navigation arrows
-  $('#gallery').after('<span class="material-icons arrow arrow-left white-90">navigate_before</span>');
-  $('#gallery').after('<span class="material-icons arrow arrow-right white-90">navigate_next</span>');
+  $('#gallery').append('<span class="material-icons arrow arrow-left black-90">navigate_before</span>');
+  $('#gallery').append('<span class="material-icons arrow arrow-right black-90">navigate_next</span>');
 
   // Hide all images except the first one
   $('#gallery img').not(':first').hide();
@@ -133,31 +151,31 @@ if ($('#gallery img').length > 0) {
   });
 }
 
+// Function to show image at a specific index
+function showImage(index) {
+  var $images = $('#gallery img');
+  var numImages = $images.length;
 
-      // Function to show image at a specific index
-      function showImage(index) {
-        var $images = $('#gallery img');
-        var numImages = $images.length;
+  // Wrap around if index is out of bounds
+  index = (index + numImages) % numImages;
 
-        // Wrap around if index is out of bounds
-        index = (index + numImages) % numImages;
+  // Hide all images except the one at the given index
+  $images.hide().eq(index).show();
 
-        // Hide all images except the one at the given index
-        $images.hide().eq(index).show();
+  // Update caption
+  var caption = $images.eq(index).data('title') || '';
+  $('#caption').html(caption);
 
-        // Update caption
-        var caption = $images.eq(index).data('title') || '';
-        $('#caption').html(caption);
+  currentIndex = index;
+}
 
-        currentIndex = index;
-      }
+$('#placeInfo').animate({ opacity: 1 }, 300);
+  
+// Scroll sidebar to focus on the place's title
+$('#sidebar').animate({
+  scrollTop: $('header').height() + 20
+}, 800);
 
-      $('#placeInfo').animate({ opacity: 1 }, 300);
-        
-      // Scroll sidebar to focus on the place's title
-      $('#sidebar').animate({
-        scrollTop: $('header').height() + 20
-      }, 800);
     })
   }
 }

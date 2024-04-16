@@ -16,12 +16,21 @@ footer {
   width: 100%;
   padding-top: 5px; /* Adjust the padding to reduce the gap */
   padding-left: 20px; /* Adjust the padding to reduce the gap */
+  padding-right: 20px; /* Adjust the padding to reduce the gap */
   border-top: none; /* Remove the border */
 }
 
 #placeInfo {
   max-height: 450px; /* Adjust the height to leave space for the footer */
   overflow-y: auto; /* Enable vertical scrolling */
+  position: relative;
+}
+
+#placeInfo h2 {
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 @media screen and (min-width:30em) {
@@ -51,7 +60,7 @@ a:hover {
 
 .leaflet-control-layers-expanded {
   font-size: 1.2em;
-  line-height: 1.2em;
+  line-height: 0.8em;
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -79,26 +88,101 @@ a:hover {
   margin-right: 5px; /* Add some spacing between checkboxes and layer names */
 }
 
+#gallery {
+  position: relative;
+  width: 100%;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+#gallery figure {
+  margin: 0;
+  width: 100%; /* Ensure each image fills the gallery horizontally */
+  height: 100%; /* Ensure each image fills the gallery vertically */
+  overflow: hidden; /* Ensure images are cropped */
+}
+
 #gallery img {
-  max-width: 100%; /* Set maximum width */
-  max-height: 300px; /* Set maximum height */
+  width: 100%; /* Ensure images fill the gallery horizontally */
+  height: 100%; /* Ensure images fill the gallery vertically */
+  object-fit: cover; /* Crop the image to cover the entire figure */
+  max-width: none; /* Override max-width */
   display: block; /* Ensure images are displayed as blocks */
   margin: 0 auto; /* Center images horizontally */
+  opacity: 1; /* Ensure images are fully visible by default */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity changes */
 }
 
-.material-icons.arrow {
-  position: absolute; /* Position arrows absolutely */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust vertical position */
-  font-size: 24px; /* Set arrow size */
-  cursor: pointer; /* Show pointer cursor */
-  color: black; /* Set arrow color */
+#gallery img:hover {
+  opacity: 1; /* Override opacity when hovering to maintain full visibility */
 }
 
-.arrow-left {
-  left: 10px; /* Position left arrow */
+#gallery .material-icons.arrow {
+  position: absolute;
+  font-size: 24px;
+  cursor: pointer;
+  color: black;
+  z-index: 2;
 }
 
-.arrow-right {
-  right: 10px; /* Position right arrow */
+#gallery .arrow-left {
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#gallery .arrow-right {
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.separator {
+  border: none;
+  border-top: 1px solid #000000;
+  margin: 0;
+  padding-top: 10px; 
+  width: 100%;
+  margin-left: auto; /* Center the line horizontally */
+  margin-right: auto; /* Center the line horizontally */
+}
+
+.f3.mv2 {
+  /* Styles specific to h1 elements with classes f3 and mv2 */
+  font-size: 1.5em;
+  font-family: Arial, sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Container Styling */
+.before-after-slider-container {
+  margin-top: 20px; /* Adjust margin as needed */
+  width: 100%; /* Ensure full width */
+}
+
+/* Before and After Slider Styling */
+.before-after-slider {
+  width: 100%; /* Ensure full width */
+  overflow: hidden; /* Hide overflow */
+}
+
+.before-after-slider .container {
+  position: relative;
+}
+
+.before-after-slider .image {
+  width: 100%; /* Ensure full width */
+  height: auto; /* Maintain aspect ratio */
+  background-size: cover; /* Cover background */
+}
+
+.before-after-slider #slider {
+  position: absolute;
+  z-index: 9;
+  cursor: ew-resize;
+  width: 10px; /* Adjust slider width */
+  height: 100%; /* Match container height */
+  background-color: #ffffff; /* Slider color */
 }
