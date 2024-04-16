@@ -118,19 +118,6 @@ function populateGallery(data) {
 // Call the populateGallery function with your data object (assuming it's named 'd')
 populateGallery(d);
 
-// Rephotography
-function populateBeforeAfterSlider(data) {
-  var beforeImageUrl = data['foreground-img'];
-  var afterImageUrl = data['background-img'];
-
-  // Set the background images of the before and after image placeholders
-  document.getElementById("beforeImage").style.backgroundImage = "url('" + beforeImageUrl + "')";
-  document.getElementById("afterImage").style.backgroundImage = "url('" + afterImageUrl + "')";
-}
-
-// Call the populateBeforeAfterSlider function with your data object (assuming it's named 'd')
-populateBeforeAfterSlider(d);
-
 // Check if there are any images in the gallery
 if ($('#gallery img').length > 0) {
   // Append navigation arrows
