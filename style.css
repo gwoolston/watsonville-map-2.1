@@ -80,7 +80,7 @@ a:hover {
 /* Optionally, you can style the content of the layer control */
 .leaflet-control-layers-selector {
   color: #333; /* Change color of layer names */
-  background-color: transparent; /* Make layer names transparent */
+  background-color: #F0EDD8; /* Make layer names transparent */
 }
 
 /* Optionally, you can style the checkboxes */
