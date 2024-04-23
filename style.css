@@ -7,6 +7,8 @@
   overflow-y: auto;
   background-color: #f0edd8ff;
   z-index: 9999;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 footer {
@@ -28,9 +30,10 @@ footer {
 
 #placeInfo h2 {
   font-size: 18px;
-  font-family: Arial, sans-serif;
-  padding-top: 10px;
+  font-family: "Calibri", sans-serif;
   padding-bottom: 10px;
+  margin-left: 1px;
+  font-weight: bold;
 }
 
 @media screen and (min-width:30em) {
@@ -59,11 +62,12 @@ a:hover {
 }
 
 .leaflet-control-layers-expanded {
-  font-size: 1.2em;
-  line-height: 0.8em;
+  font-size: 1em;
+  line-height: 0em;
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
+  font-family: "Calibri", sans-serif;
 }
 
 .leaflet-control-layers-expanded label {
@@ -121,20 +125,20 @@ a:hover {
   position: absolute;
   font-size: 24px;
   cursor: pointer;
-  color: black;
+  color: #f0edd8ff;
   z-index: 2;
 }
 
 #gallery .arrow-left {
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 5px;
+  top: 95%;
+  transform: translateY(-95%);
 }
 
 #gallery .arrow-right {
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 5px;
+  top: 95%;
+  transform: translateY(-95%);
 }
 
 
@@ -168,8 +172,10 @@ h1 {
 }
 
 h2 {
-  margin: 0;
+  margin: -7px;
   font-size: 1.0em;
   font-weight: normal;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
+  font-family: "Calibri", sans-serif;
+  color: #333;
 }
