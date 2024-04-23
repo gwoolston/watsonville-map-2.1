@@ -64,7 +64,7 @@ var updateSidebar = function(marker) {
     L.DomUtil.addClass(marker._icon, 'markerActive');
 
     // Populate place information into the sidebar
-      $('#placeInfo').animate({opacity: 0.5}, 300).promise().done(function() {
+    $('#placeInfo').animate({opacity: 0.5}, 300).promise().done(function() {
       $('#placeInfo h2').html(d.Name);
       $('#description').html(d.Description);
 
@@ -74,96 +74,112 @@ var updateSidebar = function(marker) {
 
       var currentIndex = 0; // Keep track of the current image index
 
-// Function to populate the gallery with images
-function populateGallery(data) {
-  // Load up to 5 images
-  for (var i = 1; i <= 5; i++) {
-    var idx = 'Image' + i;
+      // Function to populate the gallery with images
+      function populateGallery(data) {
+        // Load up to 5 images
+        for (var i = 1; i <= 5; i++) {
+          var idx = 'Image' + i;
 
-    if (data[idx]) {
+          if (data[idx]) {
 
-      var source = "<em class='normal'>" + data[idx + 'Source'] + '</em>';
+            var source = "<em class='normal'>" + data[idx + 'Source'] + '</em>';
 
-      if (source && data[idx + 'SourceLink']) {
-        source = "<a href='" + data[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
+            if (source && data[idx + 'SourceLink']) {
+              source = "<a href='" + data[idx + 'SourceLink'] + "' target='_blank'>" + source + "</a>";
+            }
+
+            var img = $('<img/>', {
+              src: data[idx],
+              alt: data.Name,
+              class: 'dim br1',
+              'data-lightbox': 'gallery',
+              'data-title': (data[idx + 'Caption'] + ' ' + source) || '',
+              'data-alt': data.Name,
+            });
+
+            $('#gallery').append(img);
+
+            if (i === 1) {
+              $('#gallery').after(
+                $('<p/>', {
+                  id: 'caption',
+                  class: 'f6 black-50 mt1',
+                  html: data[idx + 'Caption'] + ' ' + source
+                })
+              );
+            }
+
+          } else {
+            break;
+          }
+        }
       }
 
-      var img = $('<img/>', {
-        src: data[idx],
-        alt: data.Name,
-        class: 'dim br1',
-        'data-lightbox': 'gallery',
-        'data-title': (data[idx + 'Caption'] + ' ' + source) || '',
-        'data-alt': data.Name,
-      });
+      // Call the populateGallery function with your data object (assuming it's named 'd')
+      populateGallery(d);
 
-      $('#gallery').append(img);
+      // Check if there are any images in the gallery
+      if ($('#gallery img').length > 0) {
+        // Append navigation arrows
+        $('#gallery').append('<span class="material-icons arrow arrow-left black-90">navigate_before</span>');
+        $('#gallery').append('<span class="material-icons arrow arrow-right black-90">navigate_next</span>');
 
-      if (i === 1) {
-        $('#gallery').after(
-          $('<p/>', {
-            id: 'caption',
-            class: 'f6 black-50 mt1',
-            html: data[idx + 'Caption'] + ' ' + source
-          })
-        );
+        // Hide all images except the first one
+        $('#gallery img').not(':first').hide();
+
+        // Event handler for left arrow
+        $('.arrow-left').click(function() {
+            showImage(currentIndex - 1);
+        });
+
+        // Event handler for right arrow
+        $('.arrow-right').click(function() {
+            showImage(currentIndex + 1);
+        });
       }
 
-    } else {
-      break;
-    }
-  }
-}
+      // Function to show image at a specific index
+      function showImage(index) {
+        var $images = $('#gallery img');
+        var numImages = $images.length;
 
-// Call the populateGallery function with your data object (assuming it's named 'd')
-populateGallery(d);
+        // Wrap around if index is out of bounds
+        index = (index + numImages) % numImages;
 
-// Check if there are any images in the gallery
-if ($('#gallery img').length > 0) {
-  // Append navigation arrows
-  $('#gallery').append('<span class="material-icons arrow arrow-left black-90">navigate_before</span>');
-  $('#gallery').append('<span class="material-icons arrow arrow-right black-90">navigate_next</span>');
+        // Hide all images except the one at the given index
+        $images.hide().eq(index).show();
 
-  // Hide all images except the first one
-  $('#gallery img').not(':first').hide();
+        // Update caption
+        var caption = $images.eq(index).data('title') || '';
+        $('#caption').html(caption);
 
-  // Event handler for left arrow
-  $('.arrow-left').click(function() {
-      showImage(currentIndex - 1);
-  });
+        currentIndex = index;
+      }
 
-  // Event handler for right arrow
-  $('.arrow-right').click(function() {
-      showImage(currentIndex + 1);
-  });
-}
+      // Load additional image
+      var additionalImageUrl = d.test; // Assuming "test" is the column name for the additional image URL
 
-// Function to show image at a specific index
-function showImage(index) {
-  var $images = $('#gallery img');
-  var numImages = $images.length;
+      if (additionalImageUrl) {
+        // Create an <img> element and set its src attribute to the additional image URL
+        var additionalImage = $('<img>', {
+          src: additionalImageUrl,
+          alt: 'Additional Image'
+        });
 
-  // Wrap around if index is out of bounds
-  index = (index + numImages) % numImages;
+        // Append the additional image to the additional image container
+        $('#additionalImageContainer').html(additionalImage).show();
+      } else {
+        // If no additional image URL is provided, hide the additional image container
+        $('#additionalImageContainer').hide();
+      }
 
-  // Hide all images except the one at the given index
-  $images.hide().eq(index).show();
-
-  // Update caption
-  var caption = $images.eq(index).data('title') || '';
-  $('#caption').html(caption);
-
-  currentIndex = index;
-}
-
-$('#placeInfo').animate({ opacity: 1 }, 300);
-  
-// Scroll sidebar to focus on the place's title
-$('#sidebar').animate({
-  scrollTop: $('header').height() + 20
-}, 800);
-
-    })
+      $('#placeInfo').animate({ opacity: 1 }, 300);
+    
+      // Scroll sidebar to focus on the place's title
+      $('#sidebar').animate({
+        scrollTop: $('header').height() + 20
+      }, 800);
+    });
   }
 }
 
@@ -181,6 +197,9 @@ function resetSidebar() {
   if ($('.arrow').length > 0) {
       $('.arrow').remove();
   }
+
+  // Reset additional image container
+  $('#additionalImageContainer').html('').hide();
 }
 
 
