@@ -21,14 +21,14 @@ footer {
 }
 
 #placeInfo {
-  max-height: 450px; /* Adjust the height to leave space for the footer */
+  max-height: 490px; /* Adjust the height to leave space for the footer */
   overflow-y: auto; /* Enable vertical scrolling */
   position: relative;
 }
 
 #placeInfo h2 {
   font-size: 18px;
-  font-family: Calibri, sans-serif;
+  font-family: Arial, sans-serif;
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -150,39 +150,26 @@ a:hover {
 
 .f3.mv2 {
   /* Styles specific to h1 elements with classes f3 and mv2 */
-  font-size: 1.5em;
-  font-family: Arial, sans-serif;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  font-family: "Calibri", sans-serif;
+  color: #333;
 }
 
-/* Container Styling */
-.before-after-slider-container {
-  margin-top: 20px; /* Adjust margin as needed */
-  width: 100%; /* Ensure full width */
+/* Add styling for the additional image container if needed */
+#additionalImageContainer {
+  width: 100%;
 }
 
-/* Before and After Slider Styling */
-.before-after-slider {
-  width: 100%; /* Ensure full width */
-  overflow: hidden; /* Hide overflow */
+h1 {
+  margin: 0;
+  font-size: 1.2em;
 }
 
-.before-after-slider .container {
-  position: relative;
-}
-
-.before-after-slider .image {
-  width: 100%; /* Ensure full width */
-  height: auto; /* Maintain aspect ratio */
-  background-size: cover; /* Cover background */
-}
-
-.before-after-slider #slider {
-  position: absolute;
-  z-index: 9;
-  cursor: ew-resize;
-  width: 10px; /* Adjust slider width */
-  height: 100%; /* Match container height */
-  background-color: #ffffff; /* Slider color */
+h2 {
+  margin: 0;
+  font-size: 1.0em;
+  font-weight: normal;
+  padding-bottom: 10px;
 }
