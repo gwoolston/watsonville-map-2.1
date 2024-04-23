@@ -196,3 +196,7 @@ h2 {
   font-family: "Calibri", sans-serif;
   color: #333;
 }
+
+#audioPlayer {
+  width: 100%;
+}

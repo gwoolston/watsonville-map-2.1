@@ -68,6 +68,14 @@ var updateSidebar = function(marker) {
       $('#placeInfo h2').html(d.Name);
       $('#description').html(d.Description);
 
+      // Update audio player with audio file URL
+      if (d.Audio) {
+        $('#audioPlayer').attr('src', d.Audio);
+        $('#audioPlayer').show(); // Show the audio player if audio exists
+      } else {
+        $('#audioPlayer').hide(); // Hide the audio player if no audio exists
+      }
+
       // Reset gallery and caption
       $('#gallery').html('');
       $('#caption').remove();
