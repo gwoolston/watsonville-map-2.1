@@ -263,39 +263,42 @@ function resetSidebar() {
 /*
  * Main function that generates Leaflet markers from read CSV data
  */
-var addMarkers = function(data) {
 
+var addMarkers = function(data) {
   var activeMarker;
-  var hashName = decodeURIComponent( location.hash.substr(1) );
+  var hashName = decodeURIComponent(location.hash.substr(1));
 
   for (var i in data) {
     var d = data[i];
-
-    // Create a slug for URL hash, and add to marker data
     d['slug'] = slugify(d.Name);
 
-    // Add an empty group if doesn't yet exist
     if (!groups[d.Group]) { groups[d.Group] = []; }
 
-    // Create a new place marker
     var m = L.marker(
       [d.Latitude, d.Longitude],
       {
         icon: L.icon({
-  		iconUrl: d.Icon,
- 	 	iconSize: [25, 41], // Default marker size
-  		iconAnchor: [12.5, 41], // Middle bottom point of icon represents point center
-  		className: 'br1',
-	}),
-        // Pass place data
+          iconUrl: d.Icon,
+          iconSize: [25, 41],
+          iconAnchor: [12.5, 41],
+          className: 'br1',
+        }),
         placeInfo: d
-      },
-    ).on('click', function(e) {
-      map.flyTo(this._latlng);
-      updateSidebar(this);
-    });
+      }
+    );
 
-    // Add this new place marker to an appropriate group
+// Add event listener for "race-riot-points" group
+    if (d.Hover === "y") {
+      m.on('mouseover', function(e) {
+        this.bindTooltip(this.options.placeInfo.Name).openTooltip();
+      });
+    } else { // For other groups, retain the default click behavior
+      m.on('click', function(e) {
+        map.flyTo(this._latlng);
+        updateSidebar(this);
+      });
+    }
+
     groups[d.Group].push(m);
 
     if (d.slug === hashName) { activeMarker = m; }
