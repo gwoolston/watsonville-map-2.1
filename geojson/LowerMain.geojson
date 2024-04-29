@@ -2,6 +2,6 @@
 "type": "FeatureCollection",
 "name": "LowerMain",
 "features": [
-{ "type": "Feature", "properties": { "WKT": "POLYGON ((-121.755681 36.9091837, -121.7568827 36.9083001, -121.7551875 36.9067902, -121.7539537 36.9076696, -121.755681 36.9091837))", "name": "200 Block/Lower Main", "description": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -121.755681, 36.9091837 ], [ -121.7568827, 36.9083001 ], [ -121.7551875, 36.9067902 ], [ -121.7539537, 36.9076696 ], [ -121.755681, 36.9091837 ] ] ] } }
+{ "type": "Feature", "properties": { "name": "200 Block/Lower Main", "description": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -121.755681, 36.9091837 ], [ -121.7568827, 36.9083001 ], [ -121.7551875, 36.9067902 ], [ -121.7539537, 36.9076696 ], [ -121.755681, 36.9091837 ] ] ] } }
 ]
 }

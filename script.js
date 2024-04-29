@@ -287,6 +287,33 @@ var addMarkers = function(data) {
       }
     );
 
+        // Check if there is a GeoJSON overlay link
+        if (d['GeoJSON Overlay']) {
+          // Fetch the GeoJSON data from the provided link
+          fetch(d['GeoJSON Overlay'])
+            .then(function(response) {
+              return response.json();
+            })
+            .then(function(geojsonData) {
+              // Create a GeoJSON layer with the retrieved data
+              var geojsonLayer = L.geoJSON(geojsonData, {
+                style: function(feature) {
+                  return {
+                    color: 'green', // Stroke color
+                    weight: 2, // Stroke width
+                    fillOpacity: 0.5 // Fill opacity
+                    // Add more styling properties as needed
+                  };
+                }
+              });
+              // Add the GeoJSON layer to the map
+              geojsonLayer.addTo(map);
+            })
+            .catch(function(error) {
+              console.error('Error fetching GeoJSON data:', error);
+            });
+        }
+
 // Add event listener for "race-riot-points" group
     if (d.Hover === "y") {
       m.on('mouseover', function(e) {
