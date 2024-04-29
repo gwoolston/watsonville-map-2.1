@@ -37,7 +37,7 @@ var initMap = function() {
   });
 
   // Add zoom control to the bottom-right corner
-  L.control.zoom({ position: 'topright' }).addTo(map);
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
 
   // Add both basemaps to the map
   darkBasemap.addTo(map); // Default basemap
@@ -350,7 +350,7 @@ var allLayers = Object.assign({}, basemaps, groups);
 
 // Add layer control to switch between basemaps and overlay layers
 var layerControl = L.control.layers(basemaps, groups, {collapsed: false}).addTo(map);
-layerControl.setPosition('bottomright');
+layerControl.setPosition('topright');
 
 // If name in hash, activate it
 if (activeMarker) { activeMarker.fire('click') }
