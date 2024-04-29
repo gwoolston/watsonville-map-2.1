@@ -11,6 +11,55 @@ var slugify = function(str) {
 }
 
 /*
+ * Main function to initialize the map, add baselayer, and add markers
+ */
+// Main function to initialize the map, add baselayer, and add markers
+
+// Define basemaps
+var darkBasemap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  minZoom: 0,
+  maxZoom: 20
+});
+
+var lightBasemap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+  minZoom: 0,
+  maxZoom: 20,
+  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+  
+var initMap = function() {
+  map = L.map('map', {
+    center: mapCenter,
+    zoom: mapZoom,
+    tap: false, // to avoid issues in Safari, disable tap
+    zoomControl: false,
+  });
+
+  // Add zoom control to the bottom-right corner
+  L.control.zoom({ position: 'topright' }).addTo(map);
+
+  // Add both basemaps to the map
+  darkBasemap.addTo(map); // Default basemap
+
+  // Add basemaps and overlay layers to the layer control
+  var basemaps = {
+    "Dark Basemap": darkBasemap,
+    "Light Basemap": lightBasemap
+  };
+
+    // Initialize layer control with basemaps and empty overlays
+    var layerControl = L.control.layers(basemaps);
+  
+    // Add data & GitHub links
+    map.attributionControl.setPrefix('<a href="http://github.com/handsondataviz/leaflet-point-map-sidebar" target="_blank">Code</a> by <a href="https://handsondataviz.org/" target="_blank">HandsOnDataViz</a> | <a href="http://leafletjs.com">Leaflet</a>');
+    
+    loadData(dataLocation);
+
+  }
+
+
+/*
  * Resets map view to originally defined `mapCenter` and `mapZoom` in settings.js
  */
 var resetView = function() {
@@ -260,47 +309,21 @@ for (var g in groups) {
   groups[g].addTo(map);
 }
 
-// Create an empty object to store layer controls
-var layerControls = {};
+// Create an object to hold basemap options
+var basemaps = {
+  "Dark Basemap": darkBasemap,
+  "Light Basemap": lightBasemap
+};
 
-// Create the layers control
-for (var groupName in groups) {
-    if (groups.hasOwnProperty(groupName)) {
-        // Create a new layer control for each group
-        layerControls[groupName] = L.control.layers({}, { [groupName]: groups[groupName] }, { collapsed: false });
-    }
-}
+// Merge basemaps and groups into a single object
+var allLayers = Object.assign({}, basemaps, groups);
 
-// Add the layers control to the map
-for (var groupName in layerControls) {
-    if (layerControls.hasOwnProperty(groupName)) {
-        layerControls[groupName].addTo(map);
-    }
-}
+// Add layer control to switch between basemaps and overlay layers
+var layerControl = L.control.layers(basemaps, groups, {collapsed: false}).addTo(map);
+layerControl.setPosition('bottomright');
 
-// Get the sidebar container
-var sidebar = document.getElementById('sidebar');
-
-// Create the layers control for the sidebar
-var sidebarLayers = L.DomUtil.create('div', 'leaflet-control-layers leaflet-control leaflet-sidebar-layers');
-
-// Add the layer checkboxes
-for (var groupName in layerControls) {
-    if (layerControls.hasOwnProperty(groupName)) {
-        var layerControl = layerControls[groupName];
-        var container = L.DomUtil.create('div', '', sidebarLayers);
-        container.appendChild(layerControl.getContainer());
-    }
-}
-
-// Get the layersControlPlaceholder
-var layersControlPlaceholder = document.getElementById('layersControlPlaceholder');
-
-// Add the layers control to the layersControlPlaceholder
-layersControlPlaceholder.appendChild(sidebarLayers);
-
-  // If name in hash, activate it
-  if (activeMarker) { activeMarker.fire('click') }
+// If name in hash, activate it
+if (activeMarker) { activeMarker.fire('click') }
 
 }
 
@@ -318,59 +341,6 @@ var loadData = function(loc) {
     }
   });
 
-}
-
-// }
-
-/*
- * Main function to initialize the map, add baselayer, and add markers
- */
-var initMap = function() {
-
-map = L.map('map', {
-  center: mapCenter,
-  zoom: mapZoom,
-  tap: false, // to avoid issues in Safari, disable tap
-  zoomControl: false,
-});
-
-// Add zoom control to the bottom-right corner
-L.control.zoom({ position: 'bottomright' }).addTo(map);
-
-// Define basemaps
-var darkBasemap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  minZoom: 0,
-  maxZoom: 20
-});
-
-var lightBasemap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
-  minZoom: 0,
-  maxZoom: 20,
-  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
-
-// Add both basemaps to the map
-darkBasemap.addTo(map); // Default basemap
-
-// Create an object to hold basemap options
-var basemaps = {
-  "Dark Basemap": darkBasemap,
-  "Light Basemap": lightBasemap
-};
-
-// Add layer control to switch between basemaps
-L.control.layers(basemaps).addTo(map);
-
-  loadData(dataLocation);
-
-  // Add data & GitHub links
-  map.attributionControl.setPrefix('<a href="http://github.com/handsondataviz/leaflet-point-map-sidebar" target="_blank">Code</a> by <a href="https://handsondataviz.org/" target="_blank">HandsOnDataViz</a> | <a href="http://leafletjs.com">Leaflet</a>');
-
-  // Add custom `home` control
-  // addHomeButton();
-
-  // $('#closeButton').on('click', resetView);
 }
 
 // When DOM is loaded, initialize the map
