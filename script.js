@@ -106,6 +106,9 @@ var updateSidebar = function(marker) {
     $('header').addClass();
     $('#placeInfo').removeClass('dn');
 
+    // Make into text disappear
+    $('#content').hide();
+
     // Clear out active markers from all markers
     $('.markerActive').removeClass('markerActive');
 
