@@ -38,9 +38,11 @@ footer {
 
 #description {
   text-align: left;
-  background-color: #b2b58b;
   font-size: 12pt;
-  line-height: 1.3;
+  color: #382b13;
+  line-height: 1.5;
+  background-color: #b2b58b;
+  padding: 10px;
   margin: 5px;
 }
 
