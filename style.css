@@ -196,3 +196,7 @@ h2 {
   font-size: 12px; /* Font size */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
 }
+
+p {
+  text-align: left;
+}
