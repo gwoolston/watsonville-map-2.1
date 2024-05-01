@@ -309,9 +309,12 @@ var addMarkers = function(data) {
                   };
                 }
               });
-              // Add the GeoJSON layer to the map
-              geojsonLayer.addTo(map);
-            })
+              // Add the GeoJSON layer to the desired layer group
+              geojsonLayer.addTo(groups['🟩 Gathering Site']);
+              })
+            //   // Add the GeoJSON layer to the map
+            //   geojsonLayer.addTo(map);
+            // })
             .catch(function(error) {
               console.error('Error fetching GeoJSON data:', error);
             });
