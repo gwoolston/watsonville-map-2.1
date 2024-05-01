@@ -98,32 +98,31 @@ a:hover {
 
 #gallery {
   position: relative;
-  width: 100%;
   max-height: 300px;
   overflow: hidden;
-  margin:5px;
+  margin: 5px;
 }
 
 #gallery figure {
   margin: 0;
-  width: 100%; /* Ensure each image fills the gallery horizontally */
-  height: 100%; /* Ensure each image fills the gallery vertically */
-  overflow: hidden; /* Ensure images are cropped */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #gallery img {
-  width: 100%; /* Ensure images fill the gallery horizontally */
   height: 100%; /* Ensure images fill the gallery vertically */
-  object-fit: cover; /* Crop the image to cover the entire figure */
-  max-width: none; /* Override max-width */
-  display: block; /* Ensure images are displayed as blocks */
-  margin: 0 auto; /* Center images horizontally */
-  opacity: 1; /* Ensure images are fully visible by default */
-  transition: opacity 0.3s ease; /* Smooth transition for opacity changes */
+  max-width: 100%; /* Ensure images don't exceed the width of the figure */
+  object-fit: contain; /* Maintain aspect ratio while fitting inside the figure */
+  display: block;
+  margin: 0 auto;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 #gallery img:hover {
-  opacity: 1; /* Override opacity when hovering to maintain full visibility */
+  opacity: 1;
 }
 
 #gallery .material-icons.arrow {
