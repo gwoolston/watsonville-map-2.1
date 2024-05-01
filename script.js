@@ -178,25 +178,29 @@ var updateSidebar = function(marker) {
       // Call the populateGallery function with your data object (assuming it's named 'd')
       populateGallery(d);
 
-      // Check if there are any images in the gallery
-      if ($('#gallery img').length > 0) {
-        // Append navigation arrows
+
+// Check if there are any images in the gallery
+var numberOfImages = $('#gallery img').length;
+if (numberOfImages > 0) {
+    // Append navigation arrows only if there are multiple images
+    if (numberOfImages > 1) {
         $('#gallery').append('<span class="material-icons arrow arrow-left black-90">navigate_before</span>');
         $('#gallery').append('<span class="material-icons arrow arrow-right black-90">navigate_next</span>');
+    }
 
-        // Hide all images except the first one
-        $('#gallery img').not(':first').hide();
+    // Hide all images except the first one
+    $('#gallery img').not(':first').hide();
 
-        // Event handler for left arrow
-        $('.arrow-left').click(function() {
-            showImage(currentIndex - 1);
-        });
+    // Event handler for left arrow
+    $('.arrow-left').click(function() {
+        showImage(currentIndex - 1);
+    });
 
-        // Event handler for right arrow
-        $('.arrow-right').click(function() {
-            showImage(currentIndex + 1);
-        });
-      }
+    // Event handler for right arrow
+    $('.arrow-right').click(function() {
+        showImage(currentIndex + 1);
+    });
+}
 
       // Function to show image at a specific index
       function showImage(index) {
@@ -290,35 +294,54 @@ var addMarkers = function(data) {
       }
     );
 
-        // Check if there is a GeoJSON overlay link
-        if (d['GeoJSON Overlay']) {
-          // Fetch the GeoJSON data from the provided link
-          fetch(d['GeoJSON Overlay'])
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(geojsonData) {
-              // Create a GeoJSON layer with the retrieved data
-              var geojsonLayer = L.geoJSON(geojsonData, {
-                style: function(feature) {
-                  return {
-                    color: 'green', // Stroke color
-                    weight: 2, // Stroke width
-                    fillOpacity: 0.5 // Fill opacity
-                    // Add more styling properties as needed
-                  };
-                }
-              });
-              // Add the GeoJSON layer to the desired layer group
-              geojsonLayer.addTo(groups['🟩 Gathering Site']);
-              })
-            //   // Add the GeoJSON layer to the map
-            //   geojsonLayer.addTo(map);
-            // })
-            .catch(function(error) {
-              console.error('Error fetching GeoJSON data:', error);
-            });
+// Check if there is a GeoJSON overlay link
+if (d['GeoJSON Overlay']) {
+  // Fetch the GeoJSON data from the provided link
+  fetch(d['GeoJSON Overlay'])
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(geojsonData) {
+      // Create a GeoJSON layer with the retrieved data
+      var geojsonLayer = L.geoJSON(geojsonData, {
+        style: function(feature) {
+          return {
+            color: 'green', // Stroke color
+            weight: 2, // Stroke width
+            fillOpacity: 0.5 // Fill opacity
+            // Add more styling properties as needed
+          };
         }
+      });
+
+      // Log feature properties when clicked
+      geojsonLayer.on('click', function(event) {
+        console.log('Clicked feature properties:', event.layer.feature.properties);
+
+        // Create a simulated marker object with the feature's properties
+        var simulatedMarker = {
+          options: {
+            placeInfo: event.layer.feature.properties
+          }
+        };
+
+        // Call the updateSidebar function with the simulated marker
+        updateSidebar(simulatedMarker);
+      });
+
+      // Add the GeoJSON layer to the desired layer group
+      geojsonLayer.addTo(groups['🟩 Gathering Site']);
+    })
+    .catch(function(error) {
+      console.error('Error fetching GeoJSON data:', error);
+    });
+}
+
+
+
+
+
+
 
 // Add event listener for "race-riot-points" group
     if (d.Hover === "y") {
