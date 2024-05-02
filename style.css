@@ -149,7 +149,7 @@ a:hover {
   font-size: 24px;
   cursor: pointer;
   color: #b2b58b;
-  border: 2px #000000;
+  border: 2px #ffffff;
   z-index: 2;
 }
 
@@ -157,12 +157,14 @@ a:hover {
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
+  border: 2px #ffffff;
 }
 
 #gallery .arrow-right {
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
+  border: 2px #ffffff;
 }
 
 .separator {
