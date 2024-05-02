@@ -298,7 +298,7 @@ var addMarkers = function(data) {
       {
         icon: L.icon({
           iconUrl: d.Icon,
-          iconSize: [40, 40],
+          iconSize: [25, 30],
           iconAnchor: [12.5, 41],
           className: 'br1',
         }),
