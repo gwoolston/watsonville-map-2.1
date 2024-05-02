@@ -154,13 +154,13 @@ a:hover {
 }
 
 #gallery .arrow-left {
-  left: 5px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
 }
 
 #gallery .arrow-right {
-  right: 5px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
 }
