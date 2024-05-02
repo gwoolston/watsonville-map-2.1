@@ -121,12 +121,24 @@ var updateSidebar = function(marker) {
       $('#description').html(d.Description);
 
       // Update audio player with audio file URL
-      if (d.Audio) {
-        $('#audioPlayer').attr('src', d.Audio);
-        $('#audioPlayer').show(); // Show the audio player if audio exists
-      } else {
-        $('#audioPlayer').hide(); // Hide the audio player if no audio exists
+    if (d.Audio) {
+      $('#audioPlayer').attr('src', d.Audio);
+      $('#audioPlayer').show(); // Show the audio player if audio exists
+  
+  // Create a caption for the audio
+      if (d['Audio Caption']) {
+        $('#audioPlayer').after(
+          $('<p/>', {
+            id: 'audioCaption',
+            class: 'f6 black-50 mt1',
+            html: d.AudioCaption
+          })
+        );
       }
+    } else {
+      $('#audioPlayer').hide(); // Hide the audio player if no audio exists
+      $('#audioCaption').remove(); // Remove the audio caption if it exists
+    }
 
       // Reset gallery and caption
       $('#gallery').html('');
