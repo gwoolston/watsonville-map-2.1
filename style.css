@@ -138,6 +138,7 @@ a:hover {
   margin: 0 auto;
   opacity: 1;
   transition: opacity 0.3s ease;
+  background-color: #b2b58b;
 }
 
 #gallery img:hover {
