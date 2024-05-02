@@ -48,6 +48,17 @@ footer {
   margin: 5px;
 }
 
+#content {
+  text-align: left;
+  font-size: 11pt;
+  color: #382b13;
+  line-height: 1.5;
+  font-family: "Calibri", sans-serif;
+  background-color: #b2b58b;
+  padding: 10px;
+  margin: 5px;
+}
+
 #caption{
   margin: 5px;
   font-size: 10pt;
