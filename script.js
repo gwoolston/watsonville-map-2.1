@@ -131,7 +131,7 @@ var updateSidebar = function(marker) {
           $('<p/>', {
             id: 'audioCaption',
             class: 'f6 black-50 mt1',
-            html: d.AudioCaption
+            html: d['Audio Caption']
           })
         );
       }
