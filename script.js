@@ -363,7 +363,7 @@ if (d['GeoJSON Overlay']) {
     } else { // For other groups, retain the default click behavior
       m.on('click', function(e) {
         map.flyTo(this._latlng);
-        updateSidebar(this);
+        updateSidebar(marker.options.placeInfo);
       });
     }
 
