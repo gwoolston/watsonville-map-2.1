@@ -127,6 +127,7 @@ var updateSidebar = function(marker) {
   
   // Create a caption for the audio
       if (d['Audio Caption']) {
+        $('#audioCaption').remove();
         $('#audioPlayer').after(
           $('<p/>', {
             id: 'audioCaption',
