@@ -59,7 +59,16 @@ footer {
   margin: 5px;
 }
 
-#caption{
+#caption {
+  margin: 5px;
+  font-size: 10pt;
+  font-family: "Calibri", sans-serif;
+  color: #382b13;
+  background-color: #b2b58b;
+  padding: 10px;
+}
+
+#audioCaption {
   margin: 5px;
   font-size: 10pt;
   font-family: "Calibri", sans-serif;
