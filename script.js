@@ -15,7 +15,7 @@ var slugify = function(str) {
  */
 // Main function to initialize the map, add baselayer, and add markers
 
-// Define basemaps
+// Define basemap
 var basemap = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
 	maxZoom: 19,
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
@@ -32,11 +32,11 @@ var initMap = function() {
   // Add zoom control to the bottom-right corner
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-  // Add both basemaps to the map
+  // Add basemap to the map
   basemap.addTo(map); // Default basemap
 
-    // Initialize layer control with basemaps and empty overlays
-    var layerControl = L.control.layers(basemaps);
+    // Initialize layer control with empty overlays
+    var layerControl = L.control.layers();
   
     // Add data & GitHub links
     map.attributionControl.setPrefix('<a href="http://github.com/handsondataviz/leaflet-point-map-sidebar" target="_blank">Code</a> by <a href="https://handsondataviz.org/" target="_blank">HandsOnDataViz</a> | <a href="http://leafletjs.com">Leaflet</a>');
@@ -337,12 +337,6 @@ if (d['GeoJSON Overlay']) {
     });
 }
 
-
-
-
-
-
-
 // Add event listener for "race-riot-points" group
     if (d.Hover === "y") {
       m.on('mouseover', function(e) {
@@ -368,17 +362,8 @@ for (var g in groups) {
   groups[g].addTo(map);
 }
 
-// Create an object to hold basemap options
-var basemaps = {
-  "Dark Basemap": darkBasemap,
-  "Light Basemap": lightBasemap
-};
-
-// Merge basemaps and groups into a single object
-var allLayers = Object.assign({}, basemaps, groups);
-
-// Add layer control to switch between basemaps and overlay layers
-var layerControl = L.control.layers(basemaps, groups, {collapsed: false}).addTo(map);
+// Add layer control to switch between overlay layers
+var layerControl = L.control.layers(null, groups, {collapsed: false}).addTo(map);
 layerControl.setPosition('topright');
 
 // If name in hash, activate it
