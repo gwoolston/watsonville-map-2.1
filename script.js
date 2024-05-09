@@ -13,43 +13,38 @@ var slugify = function(str) {
 /*
  * Main function to initialize the map, add baselayer, and add markers
  */
-// Main function to initialize the map, add baselayer, and add markers
-
-// Define basemaps
- var basemap = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-	maxZoom: 19,
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+// Define basemap
+var basemap = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
 });
-  
+
 var initMap = function() {
   map = L.map('map', {
     center: mapCenter,
     zoom: mapZoom,
     tap: false, // to avoid issues in Safari, disable tap
     zoomControl: false,
+    layers: [basemap] // Add basemap directly to map
   });
 
-basemap.addTo(map);
-	
   // Add zoom control to the bottom-right corner
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    // Initialize layer control with basemaps and empty overlays
-    var layerControl = L.control.layers(basemaps);
-  
-    // Add data & GitHub links
-    map.attributionControl.setPrefix('<a href="http://github.com/handsondataviz/leaflet-point-map-sidebar" target="_blank">Code</a> by <a href="https://handsondataviz.org/" target="_blank">HandsOnDataViz</a> | <a href="http://leafletjs.com">Leaflet</a>');
-    
-    loadData(dataLocation);
+  // Initialize layer control with empty overlays
+  var layerControl = L.control.layers();
 
-  }
+  // Add data & GitHub links
+  map.attributionControl.setPrefix('<a href="http://github.com/handsondataviz/leaflet-point-map-sidebar" target="_blank">Code</a> by <a href="https://handsondataviz.org/" target="_blank">HandsOnDataViz</a> | <a href="http://leafletjs.com">Leaflet</a>');
 
+  loadData(dataLocation);
+}
 
 /*
  * Resets map view to originally defined `mapCenter` and `mapZoom` in settings.js
  */
 var resetView = function() {
-  map.flyTo( mapCenter, mapZoom );
+  map.flyTo(mapCenter, mapZoom);
   resetSidebar();
 }
 
@@ -57,24 +52,23 @@ var resetView = function() {
  * Resets sidebar, clearing out place info and leaving title+footer only
  */
 var resetSidebar = function() {
-    // Make the map title original color
-    $('header').removeClass('black-50');
+  // Make the map title original color
+  $('header').removeClass('black-50');
 
-    // Clear placeInfo containers
-    $('#placeInfo').addClass('dn');
-    $('#placeInfo h2, #placeInfo h3').html('');
-    $('#placeInfo div').html('');
-    $('#googleMaps').addClass('dn').removeClass('dt');
+  // Clear placeInfo containers
+  $('#placeInfo').addClass('dn');
+  $('#placeInfo h2, #placeInfo h3').html('');
+  $('#placeInfo div').html('');
+  $('#googleMaps').addClass('dn').removeClass('dt');
 
-    // Reset hash
-    location.hash = '';
+  // Reset hash
+  location.hash = '';
 }
 
 /*
  * Given a `marker` with data bound to it, update text and images in sidebar
  */
 var updateSidebar = function(marker) {
-
   // Get data bound to the marker
   var d = marker.options.placeInfo;
 
@@ -102,30 +96,30 @@ var updateSidebar = function(marker) {
     L.DomUtil.addClass(marker._icon, 'markerActive');
 
     // Populate place information into the sidebar
-    $('#placeInfo').animate({opacity: 0.5}, 300).promise().done(function() {
+    $('#placeInfo').animate({ opacity: 0.5 }, 300).promise().done(function() {
       $('#placeInfo h2').html(d.Name);
       $('#description').html(d.Description);
 
       // Update audio player with audio file URL
-    if (d.Audio) {
-      $('#audioPlayer').attr('src', d.Audio);
-      $('#audioPlayer').show(); // Show the audio player if audio exists
-  
-  // Create a caption for the audio
-      if (d['Audio Caption']) {
-        $('#audioCaption').remove();
-        $('#audioPlayer').after(
-          $('<p/>', {
-            id: 'audioCaption',
-            class: 'f6 black-50 mt1',
-            html: d['Audio Caption']
-          })
-        );
+      if (d.Audio) {
+        $('#audioPlayer').attr('src', d.Audio);
+        $('#audioPlayer').show(); // Show the audio player if audio exists
+
+        // Create a caption for the audio
+        if (d['Audio Caption']) {
+          $('#audioCaption').remove();
+          $('#audioPlayer').after(
+            $('<p/>', {
+              id: 'audioCaption',
+              class: 'f6 black-50 mt1',
+              html: d['Audio Caption']
+            })
+          );
+        }
+      } else {
+        $('#audioPlayer').hide(); // Hide the audio player if no audio exists
+        $('#audioCaption').remove(); // Remove the audio caption if it exists
       }
-    } else {
-      $('#audioPlayer').hide(); // Hide the audio player if no audio exists
-      $('#audioCaption').remove(); // Remove the audio caption if it exists
-    }
 
       // Reset gallery and caption
       $('#gallery').html('');
@@ -140,7 +134,6 @@ var updateSidebar = function(marker) {
           var idx = 'Image' + i;
 
           if (data[idx]) {
-
             var source = "<em class='normal'>" + data[idx + 'Source'] + '</em>';
 
             if (source && data[idx + 'SourceLink']) {
@@ -167,7 +160,6 @@ var updateSidebar = function(marker) {
                 })
               );
             }
-
           } else {
             break;
           }
@@ -177,29 +169,28 @@ var updateSidebar = function(marker) {
       // Call the populateGallery function with your data object (assuming it's named 'd')
       populateGallery(d);
 
+      // Check if there are any images in the gallery
+      var numberOfImages = $('#gallery img').length;
+      if (numberOfImages > 0) {
+        // Append navigation arrows only if there are multiple images
+        if (numberOfImages > 1) {
+          $('#gallery').append('<span class="material-icons arrow arrow-left black-90">navigate_before</span>');
+          $('#gallery').append('<span class="material-icons arrow arrow-right black-90">navigate_next</span>');
+        }
 
-// Check if there are any images in the gallery
-var numberOfImages = $('#gallery img').length;
-if (numberOfImages > 0) {
-    // Append navigation arrows only if there are multiple images
-    if (numberOfImages > 1) {
-        $('#gallery').append('<span class="material-icons arrow arrow-left black-90">navigate_before</span>');
-        $('#gallery').append('<span class="material-icons arrow arrow-right black-90">navigate_next</span>');
-    }
+        // Hide all images except the first one
+        $('#gallery img').not(':first').hide();
 
-    // Hide all images except the first one
-    $('#gallery img').not(':first').hide();
+        // Event handler for left arrow
+        $('.arrow-left').click(function() {
+          showImage(currentIndex - 1);
+        });
 
-    // Event handler for left arrow
-    $('.arrow-left').click(function() {
-        showImage(currentIndex - 1);
-    });
-
-    // Event handler for right arrow
-    $('.arrow-right').click(function() {
-        showImage(currentIndex + 1);
-    });
-}
+        // Event handler for right arrow
+        $('.arrow-right').click(function() {
+          showImage(currentIndex + 1);
+        });
+      }
 
       // Function to show image at a specific index
       function showImage(index) {
@@ -237,7 +228,7 @@ if (numberOfImages > 0) {
       }
 
       $('#placeInfo').animate({ opacity: 1 }, 300);
-    
+
       // Scroll sidebar to focus on the place's title
       $('#sidebar').animate({
         scrollTop: $('header').height() + 20
@@ -245,26 +236,6 @@ if (numberOfImages > 0) {
     });
   }
 }
-
-function resetSidebar() {
-  // Reset sidebar content
-  $('#placeInfo').addClass('dn');
-  $('header').removeClass('black-50');
-  $('#placeInfo h2').html('');
-  $('#description').html('');
-  $('#streetview h3').html('');
-  $('#gallery').html('');
-  $('#caption').remove();
-
-  // Check if navigation arrows are present and remove them
-  if ($('.arrow').length > 0) {
-      $('.arrow').remove();
-  }
-
-  // Reset additional image container
-  $('#additionalImageContainer').html('').hide();
-}
-
 
 /*
  * Main function that generates Leaflet markers from read CSV data
@@ -293,56 +264,7 @@ var addMarkers = function(data) {
       }
     );
 
-// Check if there is a GeoJSON overlay link
-if (d['GeoJSON Overlay']) {
-  // Fetch the GeoJSON data from the provided link
-  fetch(d['GeoJSON Overlay'])
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(geojsonData) {
-      // Create a GeoJSON layer with the retrieved data
-      var geojsonLayer = L.geoJSON(geojsonData, {
-        style: function(feature) {
-          return {
-            color: 'green', // Stroke color
-            weight: 2, // Stroke width
-            fillOpacity: 0.5 // Fill opacity
-            // Add more styling properties as needed
-          };
-        }
-      });
-
-      // Log feature properties when clicked
-      geojsonLayer.on('click', function(event) {
-        console.log('Clicked feature properties:', event.layer.feature.properties);
-
-        // Create a simulated marker object with the feature's properties
-        var simulatedMarker = {
-          options: {
-            placeInfo: event.layer.feature.properties
-          }
-        };
-
-        // Call the updateSidebar function with the simulated marker
-        updateSidebar(simulatedMarker);
-      });
-
-      // Add the GeoJSON layer to the desired layer group
-      geojsonLayer.addTo(groups['🟩 Gathering Site']);
-    })
-    .catch(function(error) {
-      console.error('Error fetching GeoJSON data:', error);
-    });
-}
-
-
-
-
-
-
-
-// Add event listener for "race-riot-points" group
+    // Add event listener for "race-riot-points" group
     if (d.Hover === "y") {
       m.on('mouseover', function(e) {
         this.bindTooltip(this.options.placeInfo.Name).openTooltip();
@@ -359,29 +281,16 @@ if (d['GeoJSON Overlay']) {
     if (d.slug === hashName) { activeMarker = m; }
   }
 
-// Transform each array of markers into layerGroup
-for (var g in groups) {
-  groups[g] = L.layerGroup(groups[g]);
+  // Transform each array of markers into layerGroup
+  for (var g in groups) {
+    groups[g] = L.layerGroup(groups[g]);
 
-  // By default, show all markers
-  groups[g].addTo(map);
-}
+    // By default, show all markers
+    groups[g].addTo(map);
+  }
 
-// Create an object to hold basemap options
-var basemaps = {
-  "Dark Basemap": darkBasemap,
-  "Light Basemap": lightBasemap
-};
-
-// Merge basemaps and groups into a single object
-var allLayers = Object.assign({}, basemaps, groups);
-
-// Add layer control to switch between basemaps and overlay layers
-var layerControl = L.control.layers(basemaps, groups, {collapsed: false}).addTo(map);
-layerControl.setPosition('topright');
-
-// If name in hash, activate it
-if (activeMarker) { activeMarker.fire('click') }
+  // If name in hash, activate it
+  if (activeMarker) { activeMarker.fire('click') }
 
 }
 
@@ -390,7 +299,6 @@ if (activeMarker) { activeMarker.fire('click') }
  * from Google Sheets) using PapaParse
  */
 var loadData = function(loc) {
-
   Papa.parse(loc, {
     header: true,
     download: true,
@@ -398,7 +306,6 @@ var loadData = function(loc) {
       addMarkers(results.data);
     }
   });
-
 }
 
 // When DOM is loaded, initialize the map
