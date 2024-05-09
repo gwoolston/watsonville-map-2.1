@@ -33,12 +33,14 @@ var initMap = function() {
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
   // Initialize layer control with empty overlays
-  var layerControl = L.control.layers();
+ var layerControl = L.control.layers();
 
   // Add data & GitHub links
   map.attributionControl.setPrefix('<a href="http://github.com/handsondataviz/leaflet-point-map-sidebar" target="_blank">Code</a> by <a href="https://handsondataviz.org/" target="_blank">HandsOnDataViz</a> | <a href="http://leafletjs.com">Leaflet</a>');
 
   loadData(dataLocation);
+
+  layerControl.addTo(map);
 }
 
 /*
@@ -251,7 +253,7 @@ var addMarkers = function(data) {
     d['slug'] = slugify(d.Name);
 
     if (!groups[d.Group]) { groups[d.Group] = []; }
-
+    
     var m = L.marker(
       [d.Latitude, d.Longitude],
       {
