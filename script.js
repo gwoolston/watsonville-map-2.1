@@ -16,17 +16,12 @@ var slugify = function(str) {
 // Main function to initialize the map, add baselayer, and add markers
 
 // Define basemaps
-var darkBasemap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  minZoom: 0,
-  maxZoom: 20
+ var basemap = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
 });
-
-var lightBasemap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
-  minZoom: 0,
-  maxZoom: 20,
-  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
+    
+basemap.addTo(map);
   
 var initMap = function() {
   map = L.map('map', {
@@ -38,15 +33,6 @@ var initMap = function() {
 
   // Add zoom control to the bottom-right corner
   L.control.zoom({ position: 'bottomright' }).addTo(map);
-
-  // Add both basemaps to the map
-  darkBasemap.addTo(map); // Default basemap
-
-  // Add basemaps and overlay layers to the layer control
-  var basemaps = {
-    "Dark Basemap": darkBasemap,
-    "Light Basemap": lightBasemap
-  };
 
     // Initialize layer control with basemaps and empty overlays
     var layerControl = L.control.layers(basemaps);
