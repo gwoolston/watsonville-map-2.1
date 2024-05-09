@@ -45,7 +45,6 @@ var initMap = function() {
 
   }
 
-
 /*
  * Resets map view to originally defined `mapCenter` and `mapZoom` in settings.js
  */
@@ -69,6 +68,9 @@ var resetSidebar = function() {
 
     // Reset hash
     location.hash = '';
+
+	// Load intro text
+	$('#content').show();
 }
 
 /*
@@ -93,7 +95,7 @@ var updateSidebar = function(marker) {
     $('header').addClass();
     $('#placeInfo').removeClass('dn');
 
-    // Make into text disappear
+    // Make intro text disappear
     $('#content').hide();
 
     // Clear out active markers from all markers
