@@ -75,22 +75,17 @@ var resetSidebar = function() {
  * Given a `marker` with data bound to it, update text and images in sidebar
  */
 var updateSidebar = function(marker) {
+  if (marker) {
+    // Get data bound to the marker
+    var d = marker.options.placeInfo;
 
-  // Get data bound to the marker
-  var d = marker.options.placeInfo;
-
-  if (L.DomUtil.hasClass(marker._icon, 'markerActive')) {
-    // Deselect current icon
-    L.DomUtil.removeClass(marker._icon, 'markerActive');
-    resetSidebar();
-  } else {
     // Reset sidebar before updating with new marker's information
     resetSidebar();
 
     location.hash = d.slug;
 
     // Dim map's title
-    $('header').addClass();
+    $('header').addClass('black-50');
     $('#placeInfo').removeClass('dn');
 
     // Make into text disappear
@@ -108,25 +103,25 @@ var updateSidebar = function(marker) {
       $('#description').html(d.Description);
 
       // Update audio player with audio file URL
-    if (d.Audio) {
-      $('#audioPlayer').attr('src', d.Audio);
-      $('#audioPlayer').show(); // Show the audio player if audio exists
-  
-  // Create a caption for the audio
-      if (d['Audio Caption']) {
-        $('#audioCaption').remove();
-        $('#audioPlayer').after(
-          $('<p/>', {
-            id: 'audioCaption',
-            class: 'f6 black-50 mt1',
-            html: d['Audio Caption']
-          })
-        );
+      if (d.Audio) {
+        $('#audioPlayer').attr('src', d.Audio);
+        $('#audioPlayer').show(); // Show the audio player if audio exists
+
+        // Create a caption for the audio
+        if (d['Audio Caption']) {
+          $('#audioCaption').remove();
+          $('#audioPlayer').after(
+            $('<p/>', {
+              id: 'audioCaption',
+              class: 'f6 black-50 mt1',
+              html: d['Audio Caption']
+            })
+          );
+        }
+      } else {
+        $('#audioPlayer').hide(); // Hide the audio player if no audio exists
+        $('#audioCaption').remove(); // Remove the audio caption if it exists
       }
-    } else {
-      $('#audioPlayer').hide(); // Hide the audio player if no audio exists
-      $('#audioCaption').remove(); // Remove the audio caption if it exists
-    }
 
       // Reset gallery and caption
       $('#gallery').html('');
@@ -178,29 +173,28 @@ var updateSidebar = function(marker) {
       // Call the populateGallery function with your data object (assuming it's named 'd')
       populateGallery(d);
 
+      // Check if there are any images in the gallery
+      var numberOfImages = $('#gallery img').length;
+      if (numberOfImages > 0) {
+        // Append navigation arrows only if there are multiple images
+        if (numberOfImages > 1) {
+          $('#gallery').append('<span class="material-icons arrow arrow-left black-90">navigate_before</span>');
+          $('#gallery').append('<span class="material-icons arrow arrow-right black-90">navigate_next</span>');
+        }
 
-// Check if there are any images in the gallery
-var numberOfImages = $('#gallery img').length;
-if (numberOfImages > 0) {
-    // Append navigation arrows only if there are multiple images
-    if (numberOfImages > 1) {
-        $('#gallery').append('<span class="material-icons arrow arrow-left black-90">navigate_before</span>');
-        $('#gallery').append('<span class="material-icons arrow arrow-right black-90">navigate_next</span>');
-    }
+        // Hide all images except the first one
+        $('#gallery img').not(':first').hide();
 
-    // Hide all images except the first one
-    $('#gallery img').not(':first').hide();
+        // Event handler for left arrow
+        $('.arrow-left').click(function() {
+          showImage(currentIndex - 1);
+        });
 
-    // Event handler for left arrow
-    $('.arrow-left').click(function() {
-        showImage(currentIndex - 1);
-    });
-
-    // Event handler for right arrow
-    $('.arrow-right').click(function() {
-        showImage(currentIndex + 1);
-    });
-}
+        // Event handler for right arrow
+        $('.arrow-right').click(function() {
+          showImage(currentIndex + 1);
+        });
+      }
 
       // Function to show image at a specific index
       function showImage(index) {
@@ -238,17 +232,17 @@ if (numberOfImages > 0) {
       }
 
       $('#placeInfo').animate({ opacity: 1 }, 300);
-    
+
       // Scroll sidebar to focus on the place's title
       $('#sidebar').animate({
         scrollTop: $('header').height() + 20
       }, 800);
     });
   }
-}
+};
 
 function resetSidebar() {
-  // Reset sidebar content
+  // Clear other sidebar content except for the content within <p id="content">
   $('#placeInfo').addClass('dn');
   $('header').removeClass('black-50');
   $('#placeInfo h2').html('');
@@ -259,13 +253,12 @@ function resetSidebar() {
 
   // Check if navigation arrows are present and remove them
   if ($('.arrow').length > 0) {
-      $('.arrow').remove();
+    $('.arrow').remove();
   }
 
   // Reset additional image container
   $('#additionalImageContainer').html('').hide();
 }
-
 
 /*
  * Main function that generates Leaflet markers from read CSV data
