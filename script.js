@@ -1,6 +1,7 @@
 var data = {};
 var groups = {};
 var map;
+var layerControl;
 
 /*
  * Given a string `str`, replaces whitespaces with dashes,
